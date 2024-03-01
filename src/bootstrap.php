@@ -3,7 +3,7 @@
 use App\Library\App;
 
 # App.'s hard-coded configuration
-const CURRENT_VERSION = '2.0.0';
+const CURRENT_VERSION = '2.1.0';
 
 require __DIR__ .'/../vendor/autoload.php';
 
