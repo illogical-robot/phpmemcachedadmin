@@ -253,20 +253,4 @@ class App
         }
         return true;
     }
-
-    /**
-     * Write ini file
-     * Return true if written, false otherwise
-     *
-     * @return boolean
-     */
-    public function write(): bool
-    {
-        if ($this->check()) {
-            $php = '<?php' . PHP_EOL . 'return ' . var_export($this->config, true) . ';';
-            $res = file_put_contents($this->configFilePath, $php);
-            return is_numeric($res);
-        }
-        return false;
-    }
 }
