@@ -379,11 +379,11 @@ class Server implements CommandInterface
         # Executing command : get
         $string = $this->exec("get $key", $server, $port);
         if ($string) {
-            $string = preg_replace('/^VALUE '. preg_quote($key, '/') .'[0-9 ]*\r\n/', null, $string);
+            $string = preg_replace('/^VALUE '. preg_quote($key, '/') .'[0-9 ]*\r\n/', '', $string);
             if (ord($string[0]) === 0x78 && in_array(ord($string[1]), [0x01, 0x5e, 0x9c, 0xda])) {
                 return gzuncompress($string);
             }
-            return preg_replace("/\r\nEND$/", null, rtrim($string));
+            return preg_replace("/\r\nEND$/", '', rtrim($string));
         }
         return null;
     }
@@ -403,7 +403,7 @@ class Server implements CommandInterface
     function set($server, $port, $key, $data, $duration)
     {
         # Formatting data
-        $data = preg_replace('/\r/', null, $data);
+        $data = preg_replace('/\r/', '', $data);
 
         # Executing command : set
         if (($result = $this->exec('set ' . $key . ' 0 ' . $duration . ' ' . strlen($data) . "\r\n" . $data, $server, $port))) {
