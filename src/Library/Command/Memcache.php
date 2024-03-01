@@ -24,6 +24,8 @@ namespace App\Library\Command;
 
 use App\Library\App;
 use Exception;
+// https://www.php.net/manual/en/memcache.installation.php
+use \Memcache as MemcachePecl;
 
 class Memcache implements CommandInterface
 {
@@ -46,7 +48,7 @@ class Memcache implements CommandInterface
         self::$_ini = App::getInstance();
 
         # Initializing
-        self::$_memcache = new Memcache();
+        self::$_memcache = new MemcachePecl();
     }
 
     /**
@@ -189,7 +191,7 @@ class Memcache implements CommandInterface
         self::$_memcache->addServer($server, $port);
 
         # Executing command : set
-        if (self::$_memcache->set($key, $data, 0, $duration)) {
+        if (self::$_memcache->set($key, $data, 0, (int)$duration)) {
             return 'STORED';
         }
         return 'ERROR';

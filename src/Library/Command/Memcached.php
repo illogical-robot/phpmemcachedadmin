@@ -23,6 +23,8 @@
 namespace App\Library\Command;
 
 use Exception;
+// https://www.php.net/manual/en/memcached.installation.php
+use \Memcached as MemcachedPecl;
 
 class Memcached implements CommandInterface
 {
@@ -37,7 +39,7 @@ class Memcached implements CommandInterface
     public function __construct()
     {
         # Initializing
-        self::$_memcache = new Memcached();
+        self::$_memcache = new MemcachedPecl();
     }
 
     /**
