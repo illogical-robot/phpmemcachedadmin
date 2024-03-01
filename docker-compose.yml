@@ -1,7 +1,7 @@
 version: "3"
 services:
     phpmemcachedadmin:
-        image: "php:7.4.33-apache"
+        image: "php:8.2.16-apache"
         volumes:
             - "./:/var/www/"
             - "./docker/apache2/000-default.conf:/etc/apache2/sites-enabled/000-default.conf:ro"
