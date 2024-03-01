@@ -45,7 +45,7 @@ class Components
 
         # CSS Class
         if ($class) {
-            $serverList .= 'class="'. $class .'"';
+            $serverList .= 'class="'. htmlspecialchars($class, ENT_QUOTES) .'"';
         }
 
         # Javascript Events
@@ -61,9 +61,9 @@ class Components
 
             # Cluster server
             foreach ($servers as $name => $servers2) {
-                $serverList .= '<option value="' . $name . '"';
+                $serverList .= '<option value="' . htmlspecialchars($name, ENT_QUOTES) . '"';
                 $serverList .= ($selected === $name) ? ' selected="selected"' : null;
-                $serverList .= '>&nbsp;&nbsp;-&nbsp;' . (mb_strlen($name) > 38 ? mb_substr($name, 0, 38) .' [...]' : $name) .'</option>';
+                $serverList .= '>&nbsp;&nbsp;-&nbsp;' . htmlspecialchars(mb_strlen($name) > 38 ? mb_substr($name, 0, 38) .' [...]' : $name) .'</option>';
             }
         }
         return $serverList . '</select>';
@@ -88,7 +88,7 @@ class Components
 
         # CSS Class
         if ($class) {
-            $clusterList .= 'class="'. $class .'"';
+            $clusterList .= 'class="'. htmlspecialchars($class, ENT_QUOTES) .'"';
         }
 
         # Javascript Events
@@ -116,7 +116,7 @@ class Components
      */
     public static function serverResponse(string $hostname, string $port, $data): string
     {
-        $header = '<span class="red">Server '. $hostname .':'. $port ."</span>\r\n";
+        $header = '<span class="red">Server '. htmlspecialchars($hostname .':'. $port) ."</span>\r\n";
         $return = '';
         if (is_array($data)) {
             foreach ($data as $string) {
