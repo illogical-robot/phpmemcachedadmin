@@ -72,6 +72,11 @@ if (! isset($_COOKIE['live_stats_id' . $hash])) {
 } else {
     # Backup from a previous request
     $live_stats_id = $_COOKIE['live_stats_id' . $hash];
+
+    // validate the ID
+    if (!preg_match('/^[a-z\d]+$/', $live_stats_id)) {
+        throw new Exception('The live stats ID is invalid.');
+    }
 }
 
 # Live stats dump file
