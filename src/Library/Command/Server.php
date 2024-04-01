@@ -25,8 +25,9 @@ namespace App\Library\Command;
 use App\Library\App;
 use App\Library\Data\Analysis;
 use App\Library\Data\Errors;
+use Exception;
 
-class Server implements CommandInterface
+class Server extends AbstractMemcached implements CommandInterface
 {
     /**
      * @var App|null
@@ -373,9 +374,12 @@ class Server implements CommandInterface
      * @param string $key Key to retrieve
      *
      * @return string|null
+     * @throws Exception
      */
     public function get($server, $port, $key): ?string
     {
+        $this->validateKey($key);
+
         # Executing command : get
         $string = $this->exec("get $key", $server, $port);
         if ($string) {
@@ -399,9 +403,12 @@ class Server implements CommandInterface
      * @param integer $duration Duration
      *
      * @return string
+     * @throws Exception
      */
     function set($server, $port, $key, $data, $duration)
     {
+        $this->validateKey($key);
+
         # Formatting data
         $data = preg_replace('/\r/', '', $data);
 
@@ -421,9 +428,12 @@ class Server implements CommandInterface
      * @param string $key Key to delete
      *
      * @return string
+     * @throws Exception
      */
     public function delete($server, $port, $key)
     {
+        $this->validateKey($key);
+
         # Executing command : delete
         if (($result = $this->exec('delete ' . $key, $server, $port))) {
             return $result;
@@ -441,9 +451,12 @@ class Server implements CommandInterface
      * @param integer $value Value to increment
      *
      * @return string
+     * @throws Exception
      */
     function increment($server, $port, $key, $value)
     {
+        $this->validateKey($key);
+
         # Executing command : increment
         if (($result = $this->exec('incr ' . $key . ' ' . $value, $server, $port))) {
             return $result;
@@ -461,9 +474,12 @@ class Server implements CommandInterface
      * @param integer $value Value to decrement
      *
      * @return string
+     * @throws Exception
      */
     function decrement($server, $port, $key, $value)
     {
+        $this->validateKey($key);
+
         # Executing command : decrement
         if (($result = $this->exec('decr ' . $key . ' ' . $value, $server, $port))) {
             return $result;
@@ -501,6 +517,7 @@ class Server implements CommandInterface
      * @param bool $more More action
      *
      * @return array
+     * @throws Exception
      */
     function search($server, $port, $search, $level = false, $more = false): array
     {

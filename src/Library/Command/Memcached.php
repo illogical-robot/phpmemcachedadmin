@@ -26,7 +26,7 @@ use Exception;
 // https://www.php.net/manual/en/memcached.installation.php
 use \Memcached as MemcachedPecl;
 
-class Memcached implements CommandInterface
+class Memcached extends AbstractMemcached implements CommandInterface
 {
     /**
      * @var Memcached
@@ -131,9 +131,12 @@ class Memcached implements CommandInterface
      * @param string $key Key to retrieve
      *
      * @return string
+     * @throws Exception
      */
     public function get($server, $port, $key)
     {
+        $this->validateKey($key);
+
         # Adding server
         self::$_memcache->addServer($server, $port);
 
@@ -155,9 +158,12 @@ class Memcached implements CommandInterface
      * @param integer $duration Duration
      *
      * @return string
+     * @throws Exception
      */
     function set($server, $port, $key, $data, $duration)
     {
+        $this->validateKey($key);
+
         # Adding server
         self::$_memcache->addServer($server, $port);
 
@@ -180,9 +186,12 @@ class Memcached implements CommandInterface
      * @param string $key Key to delete
      *
      * @return string
+     * @throws Exception
      */
     public function delete($server, $port, $key)
     {
+        $this->validateKey($key);
+
         # Adding server
         self::$_memcache->addServer($server, $port);
 
@@ -201,9 +210,12 @@ class Memcached implements CommandInterface
      * @param integer $value Value to increment
      *
      * @return string
+     * @throws Exception
      */
     function increment($server, $port, $key, $value)
     {
+        $this->validateKey($key);
+
         # Adding server
         self::$_memcache->addServer($server, $port);
 
@@ -224,9 +236,12 @@ class Memcached implements CommandInterface
      * @param integer $value Value to decrement
      *
      * @return string
+     * @throws Exception
      */
     function decrement($server, $port, $key, $value)
     {
+        $this->validateKey($key);
+
         # Adding server
         self::$_memcache->addServer($server, $port);
 
