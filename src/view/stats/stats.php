@@ -6,17 +6,17 @@ use App\Library\Data\Analysis;
         <div class="container corner padding">
             <div class="line">
                 <span class="left">Hits</span>
-                <?php echo Analysis::hitResize($stats['get_hits']); ?>
-                <span class="right">[<?php echo $stats['get_hits_percent']; ?>%]</span>
+                <?php echo htmlspecialchars(Analysis::hitResize($stats['get_hits'])); ?>
+                <span class="right">[<?php echo htmlspecialchars($stats['get_hits_percent']); ?>%]</span>
             </div>
             <div class="line">
                 <span class="left">Miss</span>
-                <?php echo Analysis::hitResize($stats['get_misses']); ?>
-                <span class="right">[<?php echo $stats['get_misses_percent']; ?>%]</span>
+                <?php echo htmlspecialchars(Analysis::hitResize($stats['get_misses'])); ?>
+                <span class="right">[<?php echo htmlspecialchars($stats['get_misses_percent']); ?>%]</span>
             </div>
             <div class="line">
                 <span class="left">Rate</span>
-                <?php echo $stats['get_rate']; ?> Request/sec
+                <?php echo htmlspecialchars($stats['get_rate']); ?> Request/sec
             </div>
         </div>
 
@@ -24,11 +24,11 @@ use App\Library\Data\Analysis;
         <div class="container corner padding">
             <div class="line">
                 <span class="left">Total</span>
-                <?php echo Analysis::hitResize($stats['cmd_set']); ?>
+                <?php echo htmlspecialchars(Analysis::hitResize($stats['cmd_set'])); ?>
             </div>
             <div class="line">
                 <span class="left">Rate</span>
-                <?php echo $stats['set_rate']; ?> Request/sec
+                <?php echo htmlspecialchars($stats['set_rate']); ?> Request/sec
             </div>
         </div>
 
@@ -36,17 +36,17 @@ use App\Library\Data\Analysis;
         <div class="container corner padding">
             <div class="line">
                 <span class="left">Hits</span>
-                <?php echo (isset($stats['delete_hits'])) ? Analysis::hitResize($stats['delete_hits']) : 'N/A on ' . $stats['version']; ?>
-                <span class="right">[<?php echo $stats['delete_hits_percent']; ?>%]</span>
+                <?php echo htmlspecialchars((isset($stats['delete_hits'])) ? Analysis::hitResize($stats['delete_hits']) : 'N/A on ' . $stats['version']); ?>
+                <span class="right">[<?php echo htmlspecialchars($stats['delete_hits_percent']); ?>%]</span>
             </div>
             <div class="line">
                 <span class="left">Miss</span>
-                <?php echo (isset($stats['delete_misses'])) ? Analysis::hitResize($stats['delete_misses']) : 'N/A on ' . $stats['version']; ?>
-                <span class="right">[<?php echo $stats['delete_misses_percent']; ?>%]</span>
+                <?php echo htmlspecialchars((isset($stats['delete_misses'])) ? Analysis::hitResize($stats['delete_misses']) : 'N/A on ' . $stats['version']); ?>
+                <span class="right">[<?php echo htmlspecialchars($stats['delete_misses_percent']); ?>%]</span>
             </div>
             <div class="line">
                 <span class="left">Rate</span>
-                <?php echo (isset($stats['delete_hits'])) ? $stats['delete_rate'] . ' Request/sec' : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($stats['delete_hits'])) ? $stats['delete_rate'] . ' Request/sec' : 'N/A on ' . $stats['version']); ?>
             </div>
         </div>
 
@@ -54,22 +54,22 @@ use App\Library\Data\Analysis;
         <div class="container corner padding">
             <div class="line">
                 <span class="left">Hits</span>
-                <?php echo (isset($stats['cas_hits'])) ? Analysis::hitResize($stats['cas_hits']) : 'N/A on ' . $stats['version']; ?>
-                <span class="right">[<?php echo $stats['cas_hits_percent']; ?>%]</span>
+                <?php echo htmlspecialchars((isset($stats['cas_hits'])) ? Analysis::hitResize($stats['cas_hits']) : 'N/A on ' . $stats['version']); ?>
+                <span class="right">[<?php echo htmlspecialchars($stats['cas_hits_percent']); ?>%]</span>
             </div>
             <div class="line">
                 <span class="left">Miss</span>
-                <?php echo (isset($stats['cas_misses'])) ? Analysis::hitResize($stats['cas_misses']) : 'N/A on ' . $stats['version']; ?>
-                <span class="right">[<?php echo $stats['cas_misses_percent']; ?>%]</span>
+                <?php echo htmlspecialchars((isset($stats['cas_misses'])) ? Analysis::hitResize($stats['cas_misses']) : 'N/A on ' . $stats['version']); ?>
+                <span class="right">[<?php echo htmlspecialchars($stats['cas_misses_percent']); ?>%]</span>
             </div>
             <div class="line">
                 <span class="left">Bad Value</span>
-                <?php echo (isset($stats['cas_badval'])) ? Analysis::hitResize($stats['cas_badval']) : 'N/A on ' . $stats['version']; ?>
-                <span class="right">[<?php echo $stats['cas_badval_percent']; ?>%]</span>
+                <?php echo htmlspecialchars((isset($stats['cas_badval'])) ? Analysis::hitResize($stats['cas_badval']) : 'N/A on ' . $stats['version']); ?>
+                <span class="right">[<?php echo htmlspecialchars($stats['cas_badval_percent']); ?>%]</span>
             </div>
             <div class="line">
                 <span class="left">Rate</span>
-                <?php echo (isset($stats['cas_hits'])) ? $stats['cas_rate'] . ' Request/sec' : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($stats['cas_hits'])) ? $stats['cas_rate'] . ' Request/sec' : 'N/A on ' . $stats['version']); ?>
             </div>
         </div>
 
@@ -77,17 +77,17 @@ use App\Library\Data\Analysis;
         <div class="container corner padding">
             <div class="line">
                 <span class="left">Hits</span>
-                <?php echo (isset($stats['incr_hits'])) ? Analysis::hitResize($stats['incr_hits']) : 'N/A on ' . $stats['version']; ?>
-                <span class="right">[<?php echo $stats['incr_hits_percent']; ?>%]</span>
+                <?php echo htmlspecialchars((isset($stats['incr_hits'])) ? Analysis::hitResize($stats['incr_hits']) : 'N/A on ' . $stats['version']); ?>
+                <span class="right">[<?php echo htmlspecialchars($stats['incr_hits_percent']); ?>%]</span>
             </div>
             <div class="line">
                 <span class="left">Miss</span>
-                <?php echo (isset($stats['incr_misses'])) ? Analysis::hitResize($stats['incr_misses']) : 'N/A on ' . $stats['version']; ?>
-                <span class="right">[<?php echo $stats['incr_misses_percent']; ?>%]</span>
+                <?php echo htmlspecialchars((isset($stats['incr_misses'])) ? Analysis::hitResize($stats['incr_misses']) : 'N/A on ' . $stats['version']); ?>
+                <span class="right">[<?php echo htmlspecialchars($stats['incr_misses_percent']); ?>%]</span>
             </div>
             <div class="line">
                 <span class="left">Rate</span>
-                <?php echo (isset($stats['incr_hits'])) ? $stats['incr_rate'] . ' Request/sec' : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($stats['incr_hits'])) ? $stats['incr_rate'] . ' Request/sec' : 'N/A on ' . $stats['version']); ?>
             </div>
         </div>
 
@@ -95,17 +95,17 @@ use App\Library\Data\Analysis;
         <div class="container corner padding">
             <div class="line">
                 <span class="left">Hits</span>
-                <?php echo (isset($stats['decr_hits'])) ? Analysis::hitResize($stats['decr_hits']) : 'N/A on ' . $stats['version']; ?>
-                <span class="right">[<?php echo $stats['decr_hits_percent']; ?>%]</span>
+                <?php echo htmlspecialchars((isset($stats['decr_hits'])) ? Analysis::hitResize($stats['decr_hits']) : 'N/A on ' . $stats['version']); ?>
+                <span class="right">[<?php echo htmlspecialchars($stats['decr_hits_percent']); ?>%]</span>
             </div>
             <div class="line">
                 <span class="left">Miss</span>
-                <?php echo (isset($stats['decr_misses'])) ? Analysis::hitResize($stats['decr_misses']) : 'N/A on ' . $stats['version']; ?>
-                <span class="right">[<?php echo $stats['decr_misses_percent']; ?>%]</span>
+                <?php echo htmlspecialchars((isset($stats['decr_misses'])) ? Analysis::hitResize($stats['decr_misses']) : 'N/A on ' . $stats['version']); ?>
+                <span class="right">[<?php echo htmlspecialchars($stats['decr_misses_percent']); ?>%]</span>
             </div>
             <div class="line">
                 <span class="left">Rate</span>
-                <?php echo (isset($stats['decr_hits'])) ? $stats['decr_rate'] . ' Request/sec' : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($stats['decr_hits'])) ? $stats['decr_rate'] . ' Request/sec' : 'N/A on ' . $stats['version']); ?>
             </div>
         </div>
 
@@ -113,17 +113,17 @@ use App\Library\Data\Analysis;
         <div class="container corner padding">
             <div class="line">
                 <span class="left">Hits</span>
-                <?php echo (isset($stats['touch_hits'])) ? Analysis::hitResize($stats['touch_hits']) : 'N/A on ' . $stats['version']; ?>
-                <span class="right">[<?php echo $stats['touch_hits_percent']; ?>%]</span>
+                <?php echo htmlspecialchars((isset($stats['touch_hits'])) ? Analysis::hitResize($stats['touch_hits']) : 'N/A on ' . $stats['version']); ?>
+                <span class="right">[<?php echo htmlspecialchars($stats['touch_hits_percent']); ?>%]</span>
             </div>
             <div class="line">
                 <span class="left">Miss</span>
-                <?php echo (isset($stats['touch_misses'])) ? Analysis::hitResize($stats['touch_misses']) : 'N/A on ' . $stats['version']; ?>
-                <span class="right">[<?php echo $stats['touch_misses_percent']; ?>%]</span>
+                <?php echo htmlspecialchars((isset($stats['touch_misses'])) ? Analysis::hitResize($stats['touch_misses']) : 'N/A on ' . $stats['version']); ?>
+                <span class="right">[<?php echo htmlspecialchars($stats['touch_misses_percent']); ?>%]</span>
             </div>
             <div class="line">
                 <span class="left">Rate</span>
-                <?php echo (isset($stats['touch_hits'])) ? $stats['touch_rate'] . ' Request/sec' : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($stats['touch_hits'])) ? $stats['touch_rate'] . ' Request/sec' : 'N/A on ' . $stats['version']); ?>
             </div>
         </div>
 
@@ -131,11 +131,11 @@ use App\Library\Data\Analysis;
         <div class="container corner padding" style="height:48px;">
             <div class="line">
                 <span class="left">Total</span>
-                <?php echo (isset($stats['cmd_flush'])) ? Analysis::hitResize($stats['cmd_flush']) : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($stats['cmd_flush'])) ? Analysis::hitResize($stats['cmd_flush']) : 'N/A on ' . $stats['version']); ?>
             </div>
             <div class="line">
                 <span class="left">Rate</span>
-                <?php echo (isset($stats['cmd_flush'])) ? $stats['flush_rate'] . ' Request/sec' : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($stats['cmd_flush'])) ? $stats['flush_rate'] . ' Request/sec' : 'N/A on ' . $stats['version']); ?>
             </div>
         </div>
     </div>
@@ -146,11 +146,11 @@ use App\Library\Data\Analysis;
 if((isset($_REQUEST['server'])) && ($_ini->server($_REQUEST['server'])))
 { ?>
         <div class="header corner padding size-3cols" style="text-align:center;margin-top:10px;">
-            <a href="?server=<?php echo $_REQUEST['server']; ?>&amp;show=slabs">See this Server Slabs Stats</a>
+            <a href="?server=<?php echo urlencode($_REQUEST['server']); ?>&amp;show=slabs">See this Server Slabs Stats</a>
         </div>
 <?php
 } ?>
-        <div class="sub-header corner padding"><?php echo (isset($_REQUEST['server'])) && ($_ini->server($_REQUEST['server'])) ? 'Server' : 'Cluster'; ?> <span class="green">Stats</span></div>
+        <div class="sub-header corner padding"><?php echo htmlspecialchars((isset($_REQUEST['server'])) && ($_ini->server($_REQUEST['server'])) ? 'Server' : 'Cluster'); ?> <span class="green">Stats</span></div>
         <div class="container corner padding size-3cols">
 <?php
 # Viewing a single server
@@ -158,33 +158,33 @@ if((isset($_REQUEST['server'])) && ($_ini->server($_REQUEST['server'])))
 { ?>
             <div class="line">
                 <span class="left setting">Uptime</span>
-                <?php echo Analysis::uptime($stats['uptime']); ?>
+                <?php echo htmlspecialchars(Analysis::uptime($stats['uptime'])); ?>
             </div>
             <div class="line" style="margin-bottom:4px;">
                 <span class="left setting">Memcached</span>
-                Version <?php echo $stats['version']; ?>
+                Version <?php echo htmlspecialchars($stats['version']); ?>
             </div>
 <?php
 } ?>
             <div class="line">
                 <span class="left setting">Curr Connections</span>
-                <?php echo $stats['curr_connections']; ?>
+                <?php echo htmlspecialchars($stats['curr_connections']); ?>
             </div>
             <div class="line">
                 <span class="left setting">Total Connections</span>
-                <?php echo Analysis::hitResize($stats['total_connections']); ?>
+                <?php echo htmlspecialchars(Analysis::hitResize($stats['total_connections'])); ?>
             </div>
             <div class="line">
                 <span class="left setting">Max Connections Errors</span>
-                <?php echo (isset($stats['listen_disabled_num'])) ? Analysis::hitResize($stats['listen_disabled_num']) : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($stats['listen_disabled_num'])) ? Analysis::hitResize($stats['listen_disabled_num']) : 'N/A on ' . $stats['version']); ?>
             </div>
             <div class="line" style="margin-top:4px;">
                 <span class="left setting">Current Items</span>
-                <?php echo Analysis::hitResize($stats['curr_items']); ?>
+                <?php echo htmlspecialchars(Analysis::hitResize($stats['curr_items'])); ?>
             </div>
             <div class="line">
                 <span class="left setting">Total Items</span>
-                <?php echo Analysis::hitResize($stats['total_items']); ?>
+                <?php echo htmlspecialchars(Analysis::hitResize($stats['total_items'])); ?>
             </div>
 <?php
 # Viewing a single server
@@ -192,7 +192,7 @@ if((isset($_REQUEST['server'])) && ($_ini->server($_REQUEST['server'])))
 { ?>
             <div class="line">
                 <span class="left setting">Oldest Item</span>
-                <?php echo (isset($settings['oldest'])) ? Analysis::uptime($settings['oldest']) : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($settings['oldest'])) ? Analysis::uptime($settings['oldest']) : 'N/A on ' . $stats['version']); ?>
             </div>
 <?php
 } ?>
@@ -202,28 +202,28 @@ if((isset($_REQUEST['server'])) && ($_ini->server($_REQUEST['server'])))
         <div class="container corner padding">
             <div class="line">
                 <span class="left setting">Items Eviction</span>
-                <?php echo Analysis::hitResize($stats['evictions']); ?>
+                <?php echo htmlspecialchars(Analysis::hitResize($stats['evictions'])); ?>
             </div>
             <div class="line">
                 <span class="left setting">Rate</span>
-                <?php echo $stats['eviction_rate']; ?> Eviction/sec
+                <?php echo htmlspecialchars($stats['eviction_rate']); ?> Eviction/sec
             </div>
             <div class="line" style="margin-top:4px;">
                 <span class="left setting">Reclaimed</span>
-                <?php echo (isset($stats['reclaimed'])) ? Analysis::hitResize($stats['reclaimed']) : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($stats['reclaimed'])) ? Analysis::hitResize($stats['reclaimed']) : 'N/A on ' . $stats['version']); ?>
             </div>
             <div class="line">
                 <span class="left setting">Rate</span>
-                <?php echo (isset($stats['reclaimed'])) ? $stats['reclaimed_rate'] . ' Reclaimed/sec' : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($stats['reclaimed'])) ? $stats['reclaimed_rate'] . ' Reclaimed/sec' : 'N/A on ' . $stats['version']); ?>
             </div>
 
             <div class="line" style="margin-top:4px;">
                 <span class="left setting help" title="Internal name : expired_unfetched&#013;Items pulled from LRU that were never touched by get/incr/append/etc before expiring">Expired unfetched</span>
-                <?php echo (isset($stats['expired_unfetched'])) ? Analysis::hitResize($stats['expired_unfetched']) : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($stats['expired_unfetched'])) ? Analysis::hitResize($stats['expired_unfetched']) : 'N/A on ' . $stats['version']); ?>
             </div>
             <div class="line">
                 <span class="left setting help" title="Internal name : evicted_unfetched&#013;Items evicted from LRU that were never touched by get/incr/append/etc">Evicted unfetched</span>
-                <?php echo (isset($stats['evicted_unfetched'])) ? Analysis::hitResize($stats['evicted_unfetched']) : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($stats['evicted_unfetched'])) ? Analysis::hitResize($stats['evicted_unfetched']) : 'N/A on ' . $stats['version']); ?>
             </div>
         </div>
 
@@ -243,68 +243,68 @@ if((isset($_REQUEST['server'])) && ($_ini->server($_REQUEST['server'])))
                 }
                 else
                 {
-                    echo 'N/A on ' . $stats['version'];
+                    echo htmlspecialchars('N/A on ' . $stats['version']);
                 }?>
             </div>
             <div class="line">
                 <span class="left setting help" title="Internal name : maxbytes&#013;Maximum number of bytes allowed in this cache">Max Bytes</span>
-                <?php echo (isset($settings['maxbytes'])) ? Analysis::byteResize($settings['maxbytes']) . 'Bytes' : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($settings['maxbytes'])) ? Analysis::byteResize($settings['maxbytes']) . 'Bytes' : 'N/A on ' . $stats['version']); ?>
             </div>
             <div class="line">
                 <span class="left setting help" title="Internal name : maxconns&#013;Maximum number of clients allowed">Max Connection</span>
-                <?php echo (isset($settings['maxconns'])) ? $settings['maxconns'] : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($settings['maxconns'])) ? $settings['maxconns'] : 'N/A on ' . $stats['version']); ?>
             </div>
             <div class="line">
                 <span class="left setting help" title="Internal name : tcpport &amp; udpport&#013;TCP &amp; UDP listen port">TCP/UDP Port</span>
-                <?php echo (isset($settings['tcpport'], $settings['udpport'])) ? 'TCP : ' . $settings['tcpport'] . ', UDP : ' . $settings['udpport'] : 'N/A on ' . $stats['version'] ?>
+                <?php echo htmlspecialchars((isset($settings['tcpport'], $settings['udpport'])) ? 'TCP : ' . $settings['tcpport'] . ', UDP : ' . $settings['udpport'] : 'N/A on ' . $stats['version']); ?>
             </div>
             <div class="line">
                 <span class="left setting help" title="Internal name : inter&#013;Listen interface">Listen Interface</span>
-                <?php echo (isset($settings['inter'])) ? $settings['inter'] : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($settings['inter'])) ? $settings['inter'] : 'N/A on ' . $stats['version']); ?>
             </div>
             <div class="line">
                 <span class="left setting help" title="Internal name : evictions&#013;When Off, LRU evictions are disabled">Evictions</span>
-                <?php echo (isset($settings['evictions'])) ? ucfirst($settings['evictions']) : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($settings['evictions'])) ? ucfirst($settings['evictions']) : 'N/A on ' . $stats['version']); ?>
             </div>
             <div class="line">
                 <span class="left setting help" title="Internal name : domain_socket&#013;Path to the domain socket (if any)">Path to Domain Socket</span>
-                <?php echo (isset($settings['domain_socket'])) ? $settings['domain_socket'] : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($settings['domain_socket'])) ? $settings['domain_socket'] : 'N/A on ' . $stats['version']); ?>
             </div>
             <div class="line">
                 <span class="left setting help" title="Internal name : umask&#013;Umask for the creation of the domain socket">Domain Socket Umask</span>
-                <?php echo (isset($settings['umask'])) ? $settings['umask'] : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($settings['umask'])) ? $settings['umask'] : 'N/A on ' . $stats['version']); ?>
             </div>
             <div class="line">
                 <span class="left setting help" title="Internal name : chunk_size&#013;Minimum space allocated for key + value + flags">Chunk Size</span>
-                <?php echo (isset($settings['chunk_size'])) ? $settings['chunk_size'] : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($settings['chunk_size'])) ? $settings['chunk_size'] : 'N/A on ' . $stats['version']); ?>
             </div>
             <div class="line">
                 <span class="left setting help" title="Internal name : growth_factor&#013;Chunk size growth factor">Chunk Growth Factor</span>
-                <?php echo (isset($settings['growth_factor'])) ? $settings['growth_factor'] : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($settings['growth_factor'])) ? $settings['growth_factor'] : 'N/A on ' . $stats['version']); ?>
             </div>
             <div class="line">
                 <span class="left setting help" title="Internal name : num_threads&#013;Number of threads (including dispatch)">Max Threads</span>
-                <?php echo (isset($settings['num_threads'])) ? $settings['num_threads'] : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($settings['num_threads'])) ? $settings['num_threads'] : 'N/A on ' . $stats['version']); ?>
             </div>
             <div class="line">
                 <span class="left setting help" title="Internal name : detail_enabled&#013;If yes, stats detail is enabled">Detail Enabled</span>
-                <?php echo (isset($settings['detail_enabled'])) ? ucfirst($settings['detail_enabled']) : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($settings['detail_enabled'])) ? ucfirst($settings['detail_enabled']) : 'N/A on ' . $stats['version']); ?>
             </div>
             <div class="line">
                 <span class="left setting help" title="Internal name : reqs_per_event&#013;Max num IO ops processed within an event">Max IO Ops/Event</span>
-                <?php echo (isset($settings['reqs_per_event'])) ? $settings['reqs_per_event'] : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($settings['reqs_per_event'])) ? $settings['reqs_per_event'] : 'N/A on ' . $stats['version']); ?>
             </div>
             <div class="line">
                 <span class="left setting help" title="Internal name : cas_enabled&#013;When no, CAS is not enabled for this server">CAS Enabled</span>
-                <?php echo (isset($settings['cas_enabled'])) ? ucfirst($settings['cas_enabled']) : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($settings['cas_enabled'])) ? ucfirst($settings['cas_enabled']) : 'N/A on ' . $stats['version']); ?>
             </div>
             <div class="line">
                 <span class="left setting help" title="Internal name : tcp_backlog&#013;TCP listen backlog">TCP Listen Backlog</span>
-                <?php echo (isset($settings['tcp_backlog'])) ? $settings['tcp_backlog'] : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($settings['tcp_backlog'])) ? $settings['tcp_backlog'] : 'N/A on ' . $stats['version']); ?>
             </div>
             <div class="line">
                 <span class="left setting help" title="Internal name : auth_enabled_sasl&#013;SASL auth requested and enabled">SASL Auth</span>
-                <?php echo (isset($settings['auth_enabled_sasl'])) ? ucfirst($settings['auth_enabled_sasl']) : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($settings['auth_enabled_sasl'])) ? ucfirst($settings['auth_enabled_sasl']) : 'N/A on ' . $stats['version']); ?>
             </div>
         </div>
 <?php
@@ -312,7 +312,7 @@ if((isset($_REQUEST['server'])) && ($_ini->server($_REQUEST['server'])))
 # Viewing a cluster
 elseif((isset($_REQUEST['server'])) && ($cluster = $_ini->cluster($_REQUEST['server'])))
 { ?>
-        <div class="sub-header corner padding">Cluster <?php echo $_REQUEST['server']; ?> <span class="green">Servers List</span></div>
+        <div class="sub-header corner padding">Cluster <?php echo htmlspecialchars($_REQUEST['server']); ?> <span class="green">Servers List</span></div>
         <div class="container corner padding">
 <?php
     # Displaying first 8 servers
@@ -320,10 +320,10 @@ elseif((isset($_REQUEST['server'])) && ($cluster = $_ini->cluster($_REQUEST['ser
     foreach($cluster as $name => $server)
     { ?>
             <div class="line server" style="<?php if($displayed > 8) { echo 'display:none;'; } else { $displayed++; } ?>">
-                <span class="left setting"><?php echo (strlen($name) > 27) ? substr($name, 0, 27) . ' [...]' : $name; ?></span>
-                <span class="right" style="font-weight:bold;"><a href="index.php?server=<?php echo $name; ?>" class="green">See Server Stats</a></span>
+                <span class="left setting"><?php echo htmlspecialchars((strlen($name) > 27) ? substr($name, 0, 27) . ' [...]' : $name); ?></span>
+                <span class="right" style="font-weight:bold;"><a href="index.php?server=<?php echo urlencode($name); ?>" class="green">See Server Stats</a></span>
                 <div class="line" style="margin-left:5px;">
-                    <?php echo ($status[$name] != '') ? 'Version ' . $status[$name] . ', Uptime : ' . Analysis::uptime($uptime[$name]) : 'Server did not respond'; ?>
+                    <?php echo htmlspecialchars(($status[$name] != '') ? 'Version ' . $status[$name] . ', Uptime : ' . Analysis::uptime($uptime[$name]) : 'Server did not respond'); ?>
                 </div>
             </div>
 <?php
@@ -334,7 +334,7 @@ elseif((isset($_REQUEST['server'])) && ($cluster = $_ini->cluster($_REQUEST['ser
     { ?>
             <div class="line more">
             	<span class="left" style="font-weight:bold;">
-            	<?php echo $remaining; ?> Server<?php echo ($remaining > 1) ? 's are' : ' is'; ?> not displayed</span>
+            	<?php echo htmlspecialchars($remaining); ?> Server<?php echo ($remaining > 1) ? 's are' : ' is'; ?> not displayed</span>
             	<span class="right" style="font-weight:bold;"><a href="#" onclick="javascript:show('server');javascript:hide('more');" class="green">See all <?php echo count($cluster); ?> Servers</a></span>
             </div>
 <?php
@@ -361,15 +361,15 @@ elseif((isset($_REQUEST['server'])) && ($cluster = $_ini->cluster($_REQUEST['ser
         <div class="container corner padding">
             <div class="line">
                 <span class="left">Used</span>
-                <?php echo Analysis::byteResize($slabs['total_malloced']); ?>Bytes
+                <?php echo htmlspecialchars(Analysis::byteResize($slabs['total_malloced'])); ?>Bytes
             </div>
             <div class="line">
                 <span class="left">Total</span>
-                <?php echo Analysis::byteResize($stats['limit_maxbytes']); ?>Bytes
+                <?php echo htmlspecialchars(Analysis::byteResize($stats['limit_maxbytes'])); ?>Bytes
             </div>
             <div class="line">
                 <span class="left">Wasted</span>
-                <?php echo Analysis::byteResize($slabs['total_wasted']); ?>Bytes
+                <?php echo htmlspecialchars(Analysis::byteResize($slabs['total_wasted'])); ?>Bytes
             </div>
             <!--
             <div class="line">
@@ -396,7 +396,7 @@ elseif((isset($_REQUEST['server'])) && ($cluster = $_ini->cluster($_REQUEST['ser
                         renderTo: 'cacheUsageContainer'
                     },
                     title: {
-                        text: '<b><?php echo Analysis::byteResize($stats['limit_maxbytes']); ?>Bytes</b>',
+                        text: '<b><?php echo htmlspecialchars(Analysis::byteResize($stats['limit_maxbytes'])); ?>Bytes</b>',
                         y: 110,
                         style: {
                             fontSize: '12px'
@@ -428,13 +428,13 @@ elseif((isset($_REQUEST['server'])) && ($cluster = $_ini->cluster($_REQUEST['ser
                         size: '70%',
                         innerSize: '55%',
                         data: [{name: 'Wasted',
-                                y: <?php echo $wasted_percent; ?>,
+                                y: <?php echo htmlspecialchars($wasted_percent); ?>,
                                 color: '#B5463F'},
                                {name: 'Used',
-                                y: <?php echo $used_percent; ?>,
+                                y: <?php echo htmlspecialchars($used_percent); ?>,
                                 color: '#2A707B'},
                                {name: 'Free',
-                                y: <?php echo $free_percent; ?>,
+                                y: <?php echo htmlspecialchars($free_percent); ?>,
                                 color: '#FFFFFF'}]
                     }]
                 });
@@ -448,15 +448,15 @@ if((isset($_REQUEST['server'])) && ($_ini->server($_REQUEST['server'])))
         <div class="container corner padding">
             <div class="line">
                 <span class="left help" title="Internal name : hash_power_level&#013;Current size multiplier for hash table">Power Level</span>
-                <?php echo (isset($stats['hash_power_level'])) ? Analysis::byteResize($stats['hash_power_level']) . 'Bytes' : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($stats['hash_power_level'])) ? Analysis::byteResize($stats['hash_power_level']) . 'Bytes' : 'N/A on ' . $stats['version']); ?>
             </div>
             <div class="line">
                 <span class="left">Size</span>
-                <?php echo (isset($stats['hash_bytes'])) ? Analysis::byteResize($stats['hash_bytes']) . 'Bytes' : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($stats['hash_bytes'])) ? Analysis::byteResize($stats['hash_bytes']) . 'Bytes' : 'N/A on ' . $stats['version']); ?>
             </div>
             <div class="line">
                 <span class="left help" title="Internal name : hash_is_expanding&#013;Indicates if the hash table is being grown to a new size">Expanding</span>
-                <?php if(isset($stats['hash_is_expanding'])) { if($stats['hash_is_expanding']) { echo 'Yes'; } else { echo 'No'; } } else { echo 'N/A on ' . $stats['version']; } ?>
+                <?php if(isset($stats['hash_is_expanding'])) { if($stats['hash_is_expanding']) { echo 'Yes'; } else { echo 'No'; } } else { echo htmlspecialchars('N/A on ' . $stats['version']); } ?>
             </div>
          </div>
 <?php
@@ -468,7 +468,7 @@ elseif((isset($_REQUEST['server'])) && ($cluster = $_ini->cluster($_REQUEST['ser
         <div class="container corner padding">
             <div class="line">
                 <span class="left">Size</span>
-                <?php echo (isset($stats['hash_bytes'])) ? Analysis::byteResize($stats['hash_bytes']) . 'Bytes' : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($stats['hash_bytes'])) ? Analysis::byteResize($stats['hash_bytes']) . 'Bytes' : 'N/A on ' . $stats['version']); ?>
             </div>
          </div>
 <?php
@@ -477,11 +477,11 @@ elseif((isset($_REQUEST['server'])) && ($cluster = $_ini->cluster($_REQUEST['ser
         <div class="container corner padding">
             <div class="line">
                 <span class="left help" title="Internal name : slabs_moved&#013;Indicates how many pages have been successfully moved">Slabs Moved</span>
-                <?php echo (isset($stats['slabs_moved'])) ? Analysis::hitResize($stats['slabs_moved']) : 'N/A on ' . $stats['version']; ?>
+                <?php echo htmlspecialchars((isset($stats['slabs_moved'])) ? Analysis::hitResize($stats['slabs_moved']) : 'N/A on ' . $stats['version']); ?>
             </div>
             <div class="line">
                 <span  class="left help" title="Internal name : slab_reassign_running&#013;Indicates if the slab thread is attempting to move a page.&#013;It may need to wait for some memory to free up, so it could take several seconds.">Reassigning</span>
-                <?php if(isset($stats['slab_reassign_running'])) { if($stats['slab_reassign_running']) { echo 'Yes'; } else { echo 'No'; } } else { echo 'N/A on ' . $stats['version']; } ?>
+                <?php if(isset($stats['slab_reassign_running'])) { if($stats['slab_reassign_running']) { echo 'Yes'; } else { echo 'No'; } } else { echo htmlspecialchars('N/A on ' . $stats['version']); } ?>
             </div>
          </div>
 
@@ -544,11 +544,11 @@ elseif((isset($_REQUEST['server'])) && ($cluster = $_ini->cluster($_REQUEST['ser
         <div class="container corner padding">
             <div class="line">
                 <span class="left">Bytes Read</span>
-                <?php echo Analysis::byteResize($stats['bytes_read']); ?>Bytes
+                <?php echo htmlspecialchars(Analysis::byteResize($stats['bytes_read'])); ?>Bytes
             </div>
             <div class="line">
                 <span class="left">Bytes Written</span>
-                <?php echo Analysis::byteResize($stats['bytes_written']); ?>Bytes
+                <?php echo htmlspecialchars(Analysis::byteResize($stats['bytes_written'])); ?>Bytes
             </div>
         </div>
     </div>

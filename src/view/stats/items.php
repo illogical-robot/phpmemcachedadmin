@@ -19,9 +19,9 @@ use App\Library\Data\Analysis;
         </div>
 
     <div class="sub-header corner full-size padding">
-        Items in Slab <?php echo $_REQUEST['slab']; ?>, only showing first <?php echo $_ini->get('max_item_dump'); ?> items
+        Items in Slab <?php echo htmlspecialchars($_REQUEST['slab']); ?>, only showing first <?php echo htmlspecialchars($_ini->get('max_item_dump')); ?> items
         <span style="float:right;">
-            <a href="?server=<?php echo $_REQUEST['server']; ?>&amp;show=slabs">Back to Server Slabs</a>
+            <a href="?server=<?php echo urlencode($_REQUEST['server']); ?>&amp;show=slabs">Back to Server Slabs</a>
         </span>
     </div>
     <div class="container corner full-size padding">
@@ -35,10 +35,10 @@ foreach($items as $key => $data)
     if($notFirst) { echo '<hr/>'; }
     ?>
         <a class="green item" style=""
-        onclick="javascript:executeHideShow('console', 'hide', true);javascript:executeCommand('container', 'request_key=<?php echo urlencode($key); ?>&amp;request_api=<?php echo $_ini->get('get_api'); ?>&amp;request_command=get&amp;request_server=<?php echo $_REQUEST['server']; ?>');"><?php echo ((strlen($key) > 70) ? substr($key, 0, 70) . '[..]' : $key); ?></a>
+        onclick="javascript:executeHideShow('console', 'hide', true);javascript:executeCommand('container', 'request_key=<?php echo urlencode($key); ?>&amp;request_api=<?php echo urlencode($_ini->get('get_api')); ?>&amp;request_command=get&amp;request_server=<?php echo $_REQUEST['server']; ?>');"><?php echo htmlspecialchars(((strlen($key) > 70) ? substr($key, 0, 70) . '[..]' : $key)); ?></a>
 
         <span class="right" style="clear:right;">
-            <strong>Size</strong> : <?php echo Analysis::byteResize($data[0]); ?>Bytes,
+            <strong>Size</strong> : <?php echo htmlspecialchars(Analysis::byteResize($data[0])); ?>Bytes,
             <strong>Expiration</strong> :
 <?php
             # Infinite expiration
@@ -49,7 +49,7 @@ foreach($items as $key => $data)
             # Timestamp expiration
             else
             {
-                echo Analysis::uptime($data[1] - time());
+                echo htmlspecialchars(Analysis::uptime($data[1] - time()));
             } ?>
         </span>
 <?php

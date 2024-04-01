@@ -6,22 +6,22 @@ use App\Library\Data\Analysis;
         <div class="container corner padding">
             <div class="line">
                 <span class="left">Slabs Used</span>
-                <?php echo $slabs['active_slabs']; ?>
+                <?php echo htmlspecialchars($slabs['active_slabs']); ?>
             </div>
             <div class="line">
                 <span class="left">Memory Used</span>
-                <?php echo Analysis::byteResize($slabs['total_malloced']); ?>Bytes
+                <?php echo htmlspecialchars(Analysis::byteResize($slabs['total_malloced'])); ?>Bytes
             </div>
             <div class="line">
                 <span class="left">Wasted</span>
-                <?php echo Analysis::byteResize($slabs['total_wasted']); ?>Bytes
+                <?php echo htmlspecialchars(Analysis::byteResize($slabs['total_wasted']); ?>Bytes
             </div>
         </div>
     </div>
 
     <div class="size-2" style="float:left;padding-left:9px;margin-top:10px;">
         <div class="header corner padding size-3cols" style="text-align:center;">
-            <a href="?server=<?php echo $_REQUEST['server']; ?>">See this Server Stats</a>
+            <a href="?server=<?php echo urlencode($_REQUEST['server']); ?>">See this Server Stats</a>
         </div>
         <br/>
     </div>
@@ -55,54 +55,54 @@ foreach($slabs as $id => $slab)
         }
 ?>
         <td <?php if($actualSlab > 0) { echo 'style="padding-left:9px;"'; } ?> valign="top">
-            <div class="sub-header corner padding size-5">Slab <?php echo $id; ?> <span class="green">Stats</span>
-                <span style="float:right;"><a href="?server=<?php echo $_REQUEST['server']; ?>&amp;show=items&amp;slab=<?php echo $id; ?>">See Slab Items</a></span>
+            <div class="sub-header corner padding size-5">Slab <?php echo htmlspecialchars($id); ?> <span class="green">Stats</span>
+                <span style="float:right;"><a href="?server=<?php echo urlencode($_REQUEST['server']); ?>&amp;show=items&amp;slab=<?php echo urlencode($id); ?>">See Slab Items</a></span>
             </div>
             <div class="container corner padding size-5">
                 <div class="line">
                     <span class="left slabs">Chunk Size</span>
-                    <?php echo Analysis::byteResize($slab['chunk_size']); ?>Bytes
+                    <?php echo htmlspecialchars(Analysis::byteResize($slab['chunk_size'])); ?>Bytes
                 </div>
                 <div class="line">
                     <span class="left slabs">Used Chunk</span>
-                    <?php echo Analysis::hitResize($slab['used_chunks']); ?>
-                    <span class="right">[<?php echo Analysis::valueResize($slab['used_chunks'] / $slab['total_chunks'] * 100); ?> %]</span>
+                    <?php echo htmlspecialchars(Analysis::hitResize($slab['used_chunks'])); ?>
+                    <span class="right">[<?php echo htmlspecialchars(Analysis::valueResize($slab['used_chunks'] / $slab['total_chunks'] * 100)); ?> %]</span>
                 </div>
                 <div class="line">
                     <span class="left slabs">Total Chunk</span>
-                    <?php echo Analysis::hitResize($slab['total_chunks']); ?>
+                    <?php echo htmlspecialchars(Analysis::hitResize($slab['total_chunks'])); ?>
                 </div>
                 <div class="line">
                     <span class="left slabs">Total Page</span>
-                    <?php echo $slab['total_pages']; ?>
+                    <?php echo htmlspecialchars($slab['total_pages']); ?>
                 </div>
                 <div class="line">
                     <span class="left slabs">Wasted</span>
-                    <?php echo Analysis::byteResize($slab['mem_wasted']); ?>Bytes
+                    <?php echo htmlspecialchars(Analysis::byteResize($slab['mem_wasted'])); ?>Bytes
                 </div>
                 <div class="line">
                     <span class="left slabs">Hits</span>
-                    <?php echo ($slab['request_rate'] > 999) ? Analysis::hitResize($slab['request_rate']) : $slab['request_rate']; ?> Request/sec
+                    <?php echo htmlspecialchars(($slab['request_rate'] > 999) ? Analysis::hitResize($slab['request_rate']) : $slab['request_rate']); ?> Request/sec
                 </div>
 <?php
 if($slab['used_chunks'] > 0)
 { ?>
                 <div class="line">
                     <span class="left slabs">Evicted</span>
-                    <?php echo (isset($slab['items:evicted'])) ? $slab['items:evicted'] : 'N/A'; ?>
+                    <?php echo htmlspecialchars((isset($slab['items:evicted'])) ? $slab['items:evicted'] : 'N/A'); ?>
                 </div>
 <!--
                 <div class="line">
                     <span class="left slabs">Evicted Last</span>
-                    <?php echo Analysis::uptime($slab['items:evicted_time']); ?>
+                    <?php echo htmlspecialchars(Analysis::uptime($slab['items:evicted_time'])); ?>
                 </div>
                 <div class="line">
                     <span class="left slabs">Out of Memory</span>
-                    <?php echo $slab['items:outofmemory']; ?>
+                    <?php echo htmlspecialchars($slab['items:outofmemory']); ?>
                 </div>
                 <div class="line">
                     <span class="left slabs">Tail Repairs</span>
-                    <?php echo $slab['items:tailrepairs']; ?>
+                    <?php echo htmlspecialchars($slab['items:tailrepairs']); ?>
                 </div>
                 -->
 <?php }

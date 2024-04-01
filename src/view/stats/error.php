@@ -9,7 +9,7 @@ if((isset($stats)) && (($stats === false) || ($stats == array())))
         # Asking server of cluster stats
         if(isset($_REQUEST['server']))
         {
-            echo ($_ini->cluster($_REQUEST['server'])) ? 'All servers from Cluster ' . $_REQUEST['server'] : 'Server '  . $_REQUEST['server'], ' did not respond !';
+            echo htmlspecialchars(($_ini->cluster($_REQUEST['server'])) ? 'All servers from Cluster ' . $_REQUEST['server'] : 'Server '  . $_REQUEST['server'], ' did not respond !');
         }
         # All servers stats
         else
@@ -20,7 +20,7 @@ if((isset($stats)) && (($stats === false) || ($stats == array())))
     <div class="container corner full-size padding">
         <span class="left">Error message</span>
         <br/>
-        <?php echo Errors::last(); ?>
+        <?php echo htmlspecialchars(Errors::last()); ?>
         <br/>
         <br/>
         Please check above error message or your server status and retry
@@ -54,7 +54,7 @@ elseif((isset($items)) && ($items === false))
         This slab is allocated, but is empty
         <br/>
         <br/>
-        Go back to <a href="?server=<?php echo $_REQUEST['server']; ?>&amp;show=slabs" class="green">Server Slabs</a>
+        Go back to <a href="?server=<?php echo urlencode($_REQUEST['server']); ?>&amp;show=slabs" class="green">Server Slabs</a>
     </div>
 <?php
 }
