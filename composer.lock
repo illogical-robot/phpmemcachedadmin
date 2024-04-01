@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "alexeyplodenko/symfony-php-dumper",
-            "version": "1.0.3",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/AlexeyPlodenko/symfony-php-dumper.git",
-                "reference": "f3a27638308cf8c5505dbc6a4c5527ec1d78bd1e"
+                "reference": "798d0131406fa446a632a62453ee3f9e8f12a3c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/AlexeyPlodenko/symfony-php-dumper/zipball/f3a27638308cf8c5505dbc6a4c5527ec1d78bd1e",
-                "reference": "f3a27638308cf8c5505dbc6a4c5527ec1d78bd1e",
+                "url": "https://api.github.com/repos/AlexeyPlodenko/symfony-php-dumper/zipball/798d0131406fa446a632a62453ee3f9e8f12a3c6",
+                "reference": "798d0131406fa446a632a62453ee3f9e8f12a3c6",
                 "shasum": ""
             },
             "require": {
@@ -42,9 +42,9 @@
             ],
             "support": {
                 "issues": "https://github.com/AlexeyPlodenko/symfony-php-dumper/issues",
-                "source": "https://github.com/AlexeyPlodenko/symfony-php-dumper/tree/1.0.3"
+                "source": "https://github.com/AlexeyPlodenko/symfony-php-dumper/tree/1.0.6"
             },
-            "time": "2023-10-25T05:05:44+00:00"
+            "time": "2024-03-31T03:23:02+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
