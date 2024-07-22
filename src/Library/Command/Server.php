@@ -522,7 +522,7 @@ class Server extends AbstractMemcached implements CommandInterface
     function search($server, $port, $search, $level = false, $more = false): array
     {
         $slabs = array();
-        $items = false;
+        $items = [];
 
         # Executing command : stats
         if ($level === 'full' && ($result = $this->exec('stats', $server, $port))) {

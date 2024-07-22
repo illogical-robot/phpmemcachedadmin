@@ -3,4 +3,6 @@
 /.config.php
 /docker-compose.override.yml
 /temp/*
+!temp/.gitkeep 
 /html/
+.htaccess

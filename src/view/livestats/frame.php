@@ -1,9 +1,12 @@
 <?php
+use App\Library\App;
 use App\Library\Html\Components;
+$app = App::getInstance();
+$base_url = $app->get('base_url') ?? '';
 ?>
 <script type="text/javascript">
     var timeout = <?php echo $refresh_rate * 1000; ?>;
-    var page = '/stats?request_command=live_stats&cluster=<?php echo urlencode($cluster); ?>';
+    var page = '<?= $base_url ?>/stats?request_command=live_stats&cluster=<?php echo urlencode($cluster); ?>';
     setTimeout("ajax(page,'stats')", <?php echo (5 + $refresh_rate - $_ini->get('refresh_rate')) * 1000; ?>);
 </script>
 

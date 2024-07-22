@@ -1,3 +1,8 @@
+<?php
+use App\Library\App;
+$app = App::getInstance();
+$base_url = $app->get('base_url') ?? '';      
+?>
 <?php if (isset($keys)) : ?>
     <table border="1">
         <tr>
@@ -7,7 +12,7 @@
         </tr>
         <?php foreach ($keys as $key) : ?>
             <tr>
-                <td><a href="/key?name=<?= htmlspecialchars($key['name'], ENT_QUOTES) ?>&server=<?= htmlspecialchars($requestServer, ENT_QUOTES) ?>"><?= htmlspecialchars($key['name']) ?></a></td>
+                <td><a href="<?= $base_url ?>/key?name=<?= htmlspecialchars($key['name'], ENT_QUOTES) ?>&server=<?= htmlspecialchars($requestServer, ENT_QUOTES) ?>"><?= htmlspecialchars($key['name']) ?></a></td>
                 <td align="right"><?= $key['size'] ?></td>
                 <td>
                     <?php if ($key['ttl']) : ?>
