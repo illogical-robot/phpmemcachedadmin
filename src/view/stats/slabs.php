@@ -14,7 +14,7 @@ use App\Library\Data\Analysis;
             </div>
             <div class="line">
                 <span class="left">Wasted</span>
-                <?php echo htmlspecialchars(Analysis::byteResize($slabs['total_wasted']); ?>Bytes
+                <?php echo htmlspecialchars(Analysis::byteResize($slabs['total_wasted'])); ?>Bytes
             </div>
         </div>
     </div>
