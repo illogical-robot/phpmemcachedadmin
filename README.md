@@ -112,3 +112,23 @@ Another part can execute commands to any memcached server : get, set, delete, fl
 ## Security
 
 phpMemcachedAdmin does not provide any security system, you need to add this feature by yourself.
+
+## .config.php file options
+
+You can change the default temporary directory used in the script (by default the result of the PHP function `sys_get_temp_dir()`, for ex. `/tmp/`), by specifying in your `.config.php` file the key `temp_dir_path`:
+```php
+<?php
+return [
+    'temp_dir_path' => '/var/www/my-website/custom-temp-dir/', // <<< Like that
+
+    'servers' =>[
+        'Default' => [
+            'docker-server' => [
+                'hostname' => 'host.docker.internal',
+                'port' => '11211',
+            ],
+        ],
+    ],
+];
+```
+$tempDirPath = $this->config['temp_dir_path'] ?? sys_get_temp_dir();
