@@ -110,7 +110,7 @@ switch ($request) {
                 # Getting Stats & Slabs stats
                 $data = [];
                 $data['stats'] = Factory::instance('stats_api')->stats($server['hostname'], $server['port']);
-                $slabs = Factory::instance('slabs_api')->slabs($server['hostname'], $server['port']);
+                $slabsResp = Factory::instance('slabs_api')->slabs($server['hostname'], $server['port']);
                 $data['slabs'] = $slabs ? Analysis::slabs($slabs) : [];
                 $stats = Analysis::merge($stats, $data['stats']);
 
