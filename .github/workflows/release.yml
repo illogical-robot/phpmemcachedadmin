@@ -1,0 +1,54 @@
+name: Build and Release PHAR
+
+on:
+    release:
+        types: [published]
+
+jobs:
+    build-and-upload:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+              with:
+                  # Fetch all history so we can push back to the branch
+                  fetch-depth: 0
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '8.2'
+                  extensions: mbstring, phar, iconv
+                  tools: composer
+
+            - name: Install Dependencies
+              run: composer install --no-dev --optimize-autoloader --no-interaction
+
+            - name: Inject Version and Build
+              run: |
+                  VERSION=${{ github.event.release.tag_name }}
+
+                  # 1. Update the version in the source code
+                  sed -i "s/%%VERSION%%/$VERSION/g" src/bootstrap.php
+
+                  # 2. Build the PHAR
+                  php -d phar.readonly=0 build-phar.php
+
+            - name: Commit and Push Version update
+              run: |
+                  git config --global user.name "github-actions[bot]"
+                  git config --global user.email "github-actions[bot]@users.noreply.github.com"
+                  git add src/bootstrap.php
+                  # Using --allow-empty in case the version was somehow already updated
+                  git commit -m "chore: update version to ${{ github.event.release.tag_name }}"
+                  git push origin HEAD:${{ github.event.release.target_commitish }}
+
+            - name: Upload PHAR to Release
+              uses: softprops/action-gh-release@v2
+              with:
+                  files: phpmemcachedadmin.phar
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

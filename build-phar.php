@@ -62,10 +62,6 @@ if (php_sapi_name() !== 'cli') {
     // normalize path, so there always no start and end slashes
     $path = trim($path, '/');
 
-//    if ($path === '') {
-//        $path = '/';
-//    }
-
     $fileName = basename($path);
     if (!str_contains($fileName, '.')) {
         // we can serve only files. If there is no dot in the path last segment, this is probably a directory. Let's
@@ -89,28 +85,6 @@ if (php_sapi_name() !== 'cli') {
         }
         exit;
     }
-    
-    
-//    if (file_exists($absolutePath)) {
-//        if (is_dir($absolutePath)) {
-//            // Check for index.php in the directory
-//            $indexFile = $absolutePath . '/index.php';
-//            if (file_exists($indexFile)) {
-//                require $indexFile;
-//                exit;
-//            }
-//        } else {
-//            // If it's a PHP file, include it
-//            if (pathinfo($absolutePath, PATHINFO_EXTENSION) === 'php') {
-//                require $absolutePath;
-//            } else {
-//                // Serve static asset
-//                header('Content-Type: ' . getMimeType($absolutePath));
-//                readfile($absolutePath);
-//            }
-//            exit;
-//        }
-//    }
     
     // Fallback to index.php for routing if file not found (optional, depending on app logic)
     // But usually static assets should be found. If not, maybe it's a route handled by index.php?

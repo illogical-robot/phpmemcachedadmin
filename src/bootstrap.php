@@ -4,6 +4,8 @@ use App\Library\App;
 
 require __DIR__ .'/../vendor/autoload.php';
 
+define('APP_VERSION', '%%VERSION%%');
+
 ob_start();
 
 # XSS / User input check
