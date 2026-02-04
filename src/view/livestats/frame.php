@@ -3,36 +3,31 @@ use App\Library\App;
 use App\Library\Html\Components;
 ?>
 <script type="text/javascript">
-    var timeout = <?php echo $refresh_rate * 1000; ?>;
-    var page = '<?php echo App::getInstance()->rootPath(); ?>/stats?request_command=live_stats&cluster=<?php echo urlencode($cluster); ?>';
+    const timeout = <?php echo $refresh_rate * 1000; ?>;
+    const url = '<?php echo App::getInstance()->rootPath(); ?>/stats?request_command=live_stats&cluster=<?php echo urlencode($cluster); ?>';
     
     function loadStats() {
-        ajax(page, 'stats');
+        ajax(url, 'stats');
+        setTimeout(loadStats, timeout);
     }
 
     loadStats();
-    setTimeout(loadStats, <?php echo (5 + $refresh_rate - $_ini->get('refresh_rate')) * 1000; ?>);
 </script>
 
 <div style="float:left;">
     <div class="sub-header corner full-size padding">Live <span class="green">Stats</span></div>
-    <?php
-    # Refresh rate increased
-    if($refresh_rate > $_ini->get('refresh_rate'))
-    { ?>
+    <?php if($refresh_rate > $_ini->get('refresh_rate')) : # Refresh rate increased ?>
         <div class="container corner" style="padding:9px;">
             Connections errors were discovered, to prevent any problem, refresh rate was increased by
             <?php echo sprintf('%.1f', $refresh_rate - $_ini->get('refresh_rate')); ?> seconds.
         </div>
-    <?php
-    }  ?>
+    <?php endif ?>
     <div class="full-size padding">
         <br/>
         <span class="live">Actually looking at <?php echo Components::clusterSelect('cluster_select', (isset($_REQUEST['cluster'])) ? $_REQUEST['cluster'] : '', 'live', 'onchange="changeCluster(this);"'); ?> stats</span>
 
         <pre id="stats" class="live">
-
-        Loading live stats, please wait ~<?php echo sprintf('%.0f', 5 + $refresh_rate - $_ini->get('refresh_rate')); ?> seconds ...
+            Loading live stats, please wait ~<?php echo sprintf('%.0f', 5 + $refresh_rate - $_ini->get('refresh_rate')); ?> seconds ...
         </pre>
     </div>
     <div class="container corner full-size padding">
@@ -66,7 +61,7 @@ use App\Library\Html\Components;
         </div>
         <div class="line">
             <span class="left setting">EVI/s</span>
-            Number of times an item which had an explicit expire time set had to be evicted before it expired
+            Number of times an item which had an explicit expiry time set had to be evicted before it expired
         </div>
         <div class="line">
             <span class="left setting">READ/s</span>

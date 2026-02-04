@@ -171,12 +171,11 @@ function onExecute(req, target, append) {
 	} else if (req.readyState === 4) {
 		document.getElementById('loading').style.visibility = "hidden";
 		if (req.status === 200 || req.status === 304) {
+            const object = document.getElementById(target);
 			if (append === true) {
-				const object = document.getElementById(target);
 				object.innerHTML += req.responseText;
 				object.scrollTop = object.scrollHeight;
 			} else {
-				const object = document.getElementById(target);
 				object.innerHTML = req.responseText;
 				object.scrollTop = object.scrollHeight;
 			}
@@ -196,7 +195,7 @@ function addCluster() {
             + '<div style="width:150px;float:left;margin-left:7px;">IP/Hostname</div>'
             + '<div style="width:50px;float:left;margin-left:7px;">Port</div></div>'
 			+ '<div style="margin-left:40px;margin-top:6px;" id="cluster_' + cluster_id + '_commands">'
-            + '<a class="list button" href="javascript:addServer(' + cluster_id + ')">'
+            + '<a class="list button" href="addServer(' + cluster_id + ')">'
 			+ 'Add New Server to Cluster</a> <a class="list" style="padding:1px 2px;-moz-border-radius:3px;-webkit-border-radius:3px;" '
 			+ 'href="#" onclick="deleteServerOrCluster(\'cluster_' + cluster_id + '\')">Delete Cluster</a></div><br/>';
 	clusterDiv.setAttribute('id', 'cluster_' + cluster_id);
@@ -281,7 +280,6 @@ function ajax(url, target) {
 			req.send();
 		}
 	}
-	setTimeout("ajax(page, 'stats')", timeout);
 }
 function ajaxDone(req, target) {
 	if (req.readyState === 4) {

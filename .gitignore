@@ -1,7 +1,26 @@
+# IDE
 .idea
+.fleet
+.nova
+.vscode
+.zed
+
+# OS
+.DS_Store
+Thumbs.db
+
+# External libraries
 /vendor/
 /node_modules/
+
+# User files
 /.config.php
-/docker-compose.override.yml
-/temp/*
+
+# Runtime
+/temp/
 /html/
+
+# Docker
+/docker-compose.override.yml
+/compose.override.yml
+/compose.override.yaml

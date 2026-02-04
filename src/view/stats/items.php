@@ -8,14 +8,15 @@ use App\Library\Data\Analysis;
 
                                          Click on an item's key below to see it's content here
 
-</pre>
+                
+            </pre>
         </div>
         <div class="container corner full-size padding" style="text-align:right;">
             <span style="float:left;">
-                <input style="witdh:200px;" class="header loading" type="submit" id="loading" value="Waiting for server response ..."/>
+                <input style="width:200px;" class="header loading" type="submit" id="loading" value="Waiting for server response ..."/>
             </span>
-            <input class="header" type="submit" onclick="javascript:executeClear('container')" value="Clear Console"/>
-            <input class="header" id="hide" type="submit" onclick="javascript:executeHideShow('console', 'hide');javascript:this.blur();" value="Hide Console"/>
+            <input class="header" type="submit" onclick="executeClear('container')" value="Clear Console"/>
+            <input class="header" id="hide" type="submit" onclick="executeHideShow('console', 'hide'); this.blur();" value="Hide Console"/>
         </div>
 
     <div class="sub-header corner full-size padding">
@@ -35,7 +36,7 @@ foreach($items as $key => $data)
     if($notFirst) { echo '<hr/>'; }
     ?>
         <a class="green item" style=""
-        onclick="javascript:executeHideShow('console', 'hide', true);javascript:executeCommand('container', 'request_key=<?php echo urlencode($key); ?>&amp;request_api=<?php echo urlencode($_ini->get('get_api')); ?>&amp;request_command=get&amp;request_server=<?php echo $_REQUEST['server']; ?>');"><?php echo htmlspecialchars(((strlen($key) > 70) ? substr($key, 0, 70) . '[..]' : $key)); ?></a>
+        onclick="executeHideShow('console', 'hide', true); executeCommand('container', 'request_key=<?php echo urlencode($key); ?>&amp;request_api=<?php echo urlencode($_ini->get('get_api')); ?>&amp;request_command=get&amp;request_server=<?php echo $_REQUEST['server']; ?>');"><?php echo htmlspecialchars(((strlen($key) > 70) ? substr($key, 0, 70) . '[..]' : $key)); ?></a>
 
         <span class="right" style="clear:right;">
             <strong>Size</strong> : <?php echo htmlspecialchars(Analysis::byteResize($data[0])); ?>Bytes,

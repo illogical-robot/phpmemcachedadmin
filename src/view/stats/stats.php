@@ -335,7 +335,7 @@ elseif((isset($_REQUEST['server'])) && ($cluster = $_ini->cluster($_REQUEST['ser
             <div class="line more">
             	<span class="left" style="font-weight:bold;">
             	<?php echo htmlspecialchars($remaining); ?> Server<?php echo ($remaining > 1) ? 's are' : ' is'; ?> not displayed</span>
-            	<span class="right" style="font-weight:bold;"><a href="#" onclick="javascript:show('server');javascript:hide('more');" class="green">See all <?php echo count($cluster); ?> Servers</a></span>
+            	<span class="right" style="font-weight:bold;"><a href="#" onclick="show('server'); hide('more');" class="green">See all <?php echo count($cluster); ?> Servers</a></span>
             </div>
 <?php
     } ?>
