@@ -27,7 +27,7 @@ use App\Library\Data\Analysis;
 use App\Library\Data\Errors;
 use Exception;
 
-class Server extends AbstractMemcached implements CommandInterface
+class Server extends AbstractMemcached
 {
     /**
      * @var App|null
@@ -71,8 +71,8 @@ class Server extends AbstractMemcached implements CommandInterface
         # Socket Opening
         if (! ($handle = @fsockopen($server, $port, $errno, $errstr, self::$_ini->get('connection_timeout')))) {
             # Adding error to log
-            self::$_log = utf8_encode($errstr);
-            Errors::add(utf8_encode($errstr));
+            self::$_log = mb_convert_encoding($errstr, 'ISO-8859-1', 'UTF-8');
+            Errors::add(mb_convert_encoding($errstr, 'ISO-8859-1', 'UTF-8'));
             return false;
         }
 
@@ -122,13 +122,13 @@ class Server extends AbstractMemcached implements CommandInterface
     private function end(string $buffer, string $command): bool
     {
         # incr or decr also return integer
-        if ((preg_match('/^(incr|decr)/', $command))) {
-            if (preg_match('/^(END|ERROR|SERVER_ERROR|CLIENT_ERROR|NOT_FOUND|[0-9]*)/', $buffer)) {
+        if ((preg_match('/^(?:incr|decr)/', $command))) {
+            if (preg_match('/^(?:END|ERROR|SERVER_ERROR|CLIENT_ERROR|NOT_FOUND|[0-9]*)/', $buffer)) {
                 return true;
             }
         } else {
             # Checking command response end
-            if (preg_match('/^(END|DELETED|OK|ERROR|SERVER_ERROR|CLIENT_ERROR|NOT_FOUND|STORED|RESET|TOUCHED)/', $buffer)) {
+            if (preg_match('/^(?:END|DELETED|OK|ERROR|SERVER_ERROR|CLIENT_ERROR|NOT_FOUND|STORED|RESET|TOUCHED)/', $buffer)) {
                 return true;
             }
         }
@@ -145,7 +145,7 @@ class Server extends AbstractMemcached implements CommandInterface
     public function parse(string $string, bool $stats = true): array
     {
         # Variable
-        $return = array();
+        $return = [];
 
         # Exploding by \r\n
         $lines = explode("\r\n", $string);
@@ -181,7 +181,7 @@ class Server extends AbstractMemcached implements CommandInterface
      *
      * @return array|boolean
      */
-    public function stats($server, $port)
+    public function stats(string $server, int $port)
     {
         # Executing command
         if (($return = $this->exec('stats', $server, $port))) {
@@ -199,7 +199,7 @@ class Server extends AbstractMemcached implements CommandInterface
      *
      * @return array|boolean
      */
-    public function settings($server, $port)
+    public function settings(string $server, int $port)
     {
         # Executing command
         if (($return = $this->exec('stats settings', $server, $port))) {
@@ -217,14 +217,14 @@ class Server extends AbstractMemcached implements CommandInterface
      *
      * @return array|boolean
      */
-    public function slabs($server, $port)
+    public function slabs(string $server, int $port)
     {
         # Initializing
-        $slabs = array();
+        $slabs = [];
 
         # Finding uptime
         $stats = $this->stats($server, $port);
-        $slabs['uptime'] = $stats['uptime'];
+        $slabs['uptime'] = $stats['uptime'] ?? 0;
         unset($stats);
 
         $slabs['classes'] = [];
@@ -263,7 +263,7 @@ class Server extends AbstractMemcached implements CommandInterface
     public function slabsWithItems(string $server, int $port)
     {
         # Initializing
-        $slabs = array();
+        $slabs = [];
 
         # Finding uptime
         $stats = $this->stats($server, $port);
@@ -352,16 +352,17 @@ class Server extends AbstractMemcached implements CommandInterface
      *
      * @return array|boolean
      */
-    public function items($server, $port, $slab)
+    public function items(string $server, int $port, int $slab)
     {
         # Initializing
         $items = false;
 
         # Executing command : stats cachedump
-        if (($result = $this->exec('stats cachedump ' . $slab . ' ' . self::$_ini->get('max_item_dump'), $server, $port))) {
+        if ($result = $this->exec('stats cachedump ' . $slab . ' ' . self::$_ini->get('max_item_dump'), $server, $port)) {
             # Parsing result
             $items = $this->parse($result, false);
         }
+        
         return $items;
     }
 
@@ -376,7 +377,7 @@ class Server extends AbstractMemcached implements CommandInterface
      * @return string|null
      * @throws Exception
      */
-    public function get($server, $port, $key): ?string
+    public function get(string $server, int $port, string $key): ?string
     {
         $this->validateKey($key);
 
@@ -405,7 +406,7 @@ class Server extends AbstractMemcached implements CommandInterface
      * @return string
      * @throws Exception
      */
-    function set($server, $port, $key, $data, $duration)
+    public function set(string $server, int $port, string $key, $data, int $duration): string
     {
         $this->validateKey($key);
 
@@ -430,7 +431,7 @@ class Server extends AbstractMemcached implements CommandInterface
      * @return string
      * @throws Exception
      */
-    public function delete($server, $port, $key)
+    public function delete(string $server, int $port, string $key): string
     {
         $this->validateKey($key);
 
@@ -453,7 +454,7 @@ class Server extends AbstractMemcached implements CommandInterface
      * @return string
      * @throws Exception
      */
-    function increment($server, $port, $key, $value)
+    public function increment(string $server, int $port, string $key, int $value): string
     {
         $this->validateKey($key);
 
@@ -476,7 +477,7 @@ class Server extends AbstractMemcached implements CommandInterface
      * @return string
      * @throws Exception
      */
-    function decrement($server, $port, $key, $value)
+    public function decrement(string $server, int $port, string $key, int $value): string
     {
         $this->validateKey($key);
 
@@ -497,7 +498,7 @@ class Server extends AbstractMemcached implements CommandInterface
      *
      * @return string
      */
-    function flush_all($server, $port, $delay)
+    public function flush_all(string $server, int $port, int $delay): string
     {
         # Executing command : flush_all
         if (($result = $this->exec('flush_all ' . $delay, $server, $port))) {
@@ -512,19 +513,20 @@ class Server extends AbstractMemcached implements CommandInterface
      *
      * @param string $server Hostname
      * @param integer $port Hostname Port
-     * @param $search
-     * @param bool $level Level of Detail
-     * @param bool $more More action
+     * @param string $search
+     * @param string|null $level Level of Detail
+     * @param string|null $more More action
      *
      * @return array
      * @throws Exception
      */
-    function search($server, $port, $search, $level = false, $more = false): array
+    public function search(string $server, int $port, string $search, ?string $level = null, ?string $more = null): array
     {
-        $slabs = array();
+        $slabs = [];
         $items = false;
 
         # Executing command : stats
+        $infinite = 0;
         if ($level === 'full' && ($result = $this->exec('stats', $server, $port))) {
             # Parsing result
             $result = $this->parse($result);
@@ -550,19 +552,19 @@ class Server extends AbstractMemcached implements CommandInterface
             if (($result = $this->exec('stats cachedump ' . $slab . ' 0', $server, $port))) {
                 # Parsing result
                 preg_match_all(
-                    '/^ITEM ((?:.*)' . preg_quote($search, '/') . '(?:.*)) \[([0-9]*) b; ([0-9]*) s\]\r\n/imU',
+                    '/^ITEM (.*' . preg_quote($search, '/') . '.*) \[([0-9]*) b; ([0-9]*) s]\r\n/imU',
                     $result,
                     $matches,
                     PREG_SET_ORDER
                 );
                 foreach ($matches as $item) {
                     # Search & Delete
-                    if ($more == 'delete') {
+                    if ($more === 'delete') {
                         $items[] = $item[1] . ' : ' . $this->delete($server, $port, $item[1]);
                         # Basic search
                     } else {
                         # Detail level
-                        if ($level == 'full') {
+                        if ($level === 'full') {
                             $items[] = $item[1] . ' : [' . trim(Analysis::byteResize($item[2])) . 'b, expire in ' . (($item[3] == $infinite) ? '&#8734;' : Analysis::uptime($item[3] - time(), true)) . ']';
                         } else {
                             $items[] = $item[1];
@@ -590,7 +592,7 @@ class Server extends AbstractMemcached implements CommandInterface
      *
      * @return string
      */
-    function telnet($server, $port, $command)
+    function telnet(string $server, int $port, string $command): string
     {
         # Executing command
         $result = $this->exec($command, $server, $port);

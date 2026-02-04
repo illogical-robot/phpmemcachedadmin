@@ -23,13 +23,14 @@
 namespace App\Library\Command;
 
 use App\Library\App;
+use InvalidArgumentException;
 
 class Factory
 {
     /**
      * @var array
      */
-    private static $_object = array();
+    private static $_object = [];
 
     /**
      * No explicit call of constructor
@@ -49,51 +50,49 @@ class Factory
      * Accessor to command class instance by command type
      *
      * @param string $command Type of command
-     *
-     * @return void
      */
-    public static function instance($command)
+    public static function instance(string $command): AbstractMemcached
     {
         # Importing configuration
         $_ini = App::getInstance();
 
-        # Instance does not exists
-        if (! isset(self::$_object[$_ini->get($command)]) || ($_ini->get($command) != 'Server')) {
+        # Instance does not exist
+        if (! isset(self::$_object[$_ini->get($command)]) || ($_ini->get($command) !== 'Server')) {
             # Switching by API
             switch ($_ini->get($command)) {
-                case 'Memcache' :
+                case 'Memcache':
                     # PECL Memcache API
                     require_once 'Memcache.php';
                     self::$_object['Memcache'] = new Memcache();
                     break;
 
-                case 'Memcached' :
+                case 'Memcached':
                     # PECL Memcached API
                     require_once 'Memcached.php';
                     self::$_object['Memcached'] = new Memcached();
                     break;
 
-                case 'Server' :
-                default :
-                    # Server API (eg communicating directly with the memcache server)
+                case 'Server':
+                    # Server API (e.g. communicating directly with the memcache server)
                     require_once 'Server.php';
                     self::$_object['Server'] = new Server();
                     break;
+
+                default:
+                    throw new InvalidArgumentException("Unknown API supplied \"$command\".");
             }
         }
+        
         return self::$_object[$_ini->get($command)];
     }
 
     /**
      * Accessor to command class instance by type
-     *
-     * @param $api
-     * @return Memcache|Memcached|Server
      */
-    public static function api($api)
+    public static function api(string $api): AbstractMemcached
     {
-        # Instance does not exists
-        if (! isset(self::$_object[$api]) || ($api != 'Server')) {
+        # Instance does not exist
+        if (! isset(self::$_object[$api]) || ($api !== 'Server')) {
             # Switching by API
             switch ($api) {
                 case 'Memcache' :
@@ -109,13 +108,16 @@ class Factory
                     break;
 
                 case 'Server' :
-                default :
-                    # Server API (eg communicating directly with the memcache server)
+                    # Server API (e.g. communicating directly with the memcache server)
                     require_once 'Server.php';
                     self::$_object['Server'] = new Server();
                     break;
+
+                default:
+                    throw new InvalidArgumentException("Unknown API supplied \"$api\".");
             }
         }
+        
         return self::$_object[$api];
     }
 }

@@ -22,6 +22,8 @@
  */
 namespace App\Library;
 
+use RuntimeException;
+
 class App
 {
     /**
@@ -46,7 +48,6 @@ class App
         'memory_alert' => 80,
         'hit_rate_alert' => 90,
         'eviction_alert' => 0,
-        'temp_dir_path' => '/temp/',
         'time_zone' => 'UTC',
         'servers' => [
             'Default' => [
@@ -66,7 +67,7 @@ class App
     /**
      * @var string
      */
-    protected $configFilePath = '/.config.php';
+    protected $configFilePath = './.config.php';
 
     /**
      * @var string
@@ -93,7 +94,7 @@ class App
 
         if ($this->exists()) {
             $configFilePath = $this->configFilePath();
-            $userConfig = require($configFilePath);
+            $userConfig = require $configFilePath;
             if (is_array($userConfig)) {
                 $this->config = array_merge($this->config, $userConfig);
             }
@@ -115,7 +116,7 @@ class App
 
     /**
      * Config key to retrieve
-     * Return the value, or false if does not exists
+     * Return the value, or false if it does not exist
      *
      * @param string $key Key to get
      *
@@ -135,7 +136,18 @@ class App
     public function tempDirPath(): string
     {
         if (!$this->realTempDirPath) {
-            $this->realTempDirPath = realpath(__DIR__ .'/../..'. $this->config['temp_dir_path']);
+            $tempDirPath = $this->config['temp_dir_path'] ?? sys_get_temp_dir();
+            if (!is_dir($tempDirPath)) {
+                throw new RuntimeException("The temporary \"$tempDirPath\" directory does not exist.");
+            }
+            if (!is_readable($tempDirPath)) {
+                throw new RuntimeException("The temporary \"$tempDirPath\" directory does not have read permissions.");
+            }
+            if (!is_writable($tempDirPath)) {
+                throw new RuntimeException("The temporary \"$tempDirPath\" directory does not have write permissions.");
+            }
+
+            $this->realTempDirPath = realpath($tempDirPath);
         }
 
         return $this->realTempDirPath;
@@ -214,7 +226,7 @@ class App
     public function configFilePath(): string
     {
         if (!$this->realConfigFilePath) {
-            $this->realConfigFilePath = realpath(__DIR__ .'/../..'. $this->configFilePath);
+            $this->realConfigFilePath = realpath(__DIR__ .'/../../'. $this->configFilePath);
         }
 
         return $this->realConfigFilePath;
@@ -259,12 +271,12 @@ class App
     /**
      * Return the root path, blank by default.
      *
-     * This is the root URL path of the application. By default it is the home directory.
+     * This is the root URL path of the application. By default, it is the home directory.
      *
      * @return string
      */
     public function rootPath(): string
     {
-				return $this->config['rootPath'];
+        return $this->config['rootPath'] ?? '';
     }
 }

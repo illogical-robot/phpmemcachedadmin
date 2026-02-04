@@ -2,20 +2,17 @@
 use App\Library\Data\Errors;
 
 # Server seems down
-if((isset($stats)) && (($stats === false) || ($stats == array())))
-{ ?>
+if ((isset($stats)) && (($stats === false) || ($stats == []))) : ?>
     <div class="header corner full-size padding" style="margin-top:10px;text-align:center;">
-        <?php
-        # Asking server of cluster stats
-        if(isset($_REQUEST['server']))
-        {
-            echo htmlspecialchars(($_ini->cluster($_REQUEST['server'])) ? 'All servers from Cluster ' . $_REQUEST['server'] : 'Server '  . $_REQUEST['server'], ' did not respond !');
-        }
-        # All servers stats
-        else
-        {
-            echo 'Servers did not respond !';
-        } ?>
+        <?php if (isset($_REQUEST['server'])) : # Asking server of cluster stats ?>
+            <?php if ($_ini->cluster($_REQUEST['server'])) : ?>
+                <?= htmlspecialchars('All servers from Cluster ' . $_REQUEST['server']) ?>
+            <?php else : ?>
+                <?= htmlspecialchars("Server {$_REQUEST['server']} did not respond!") ?>
+            <?php endif ?>
+        <?php else : # All servers stats ?>
+            Servers did not respond!
+        <?php endif ?>
     </div>
     <div class="container corner full-size padding">
         <span class="left">Error message</span>
@@ -25,26 +22,16 @@ if((isset($stats)) && (($stats === false) || ($stats == array())))
         <br/>
         Please check above error message or your server status and retry
     </div>
-<?php
-}
-# No slabs used
-elseif((isset($slabs)) && ($slabs === false))
-{
-?>
+<?php elseif((isset($slabs)) && ($slabs === false)) : # No slabs used ?>
     <div class="header corner full-size padding" style="margin-top:10px;text-align:center;">
         No slabs used in this server !
     </div>
     <div class="container corner full-size padding">
         <span class="left">Error message</span>
         <br/>
-        Maybe this server is not used, check your your server status and retry
+        Maybe this server is not used, check your server status and retry
     </div>
-<?php
-}
-# No Items in slab
-elseif((isset($items)) && ($items === false))
-{
-?>
+<?php elseif((isset($items)) && ($items === false)) : # No Items in slab ?>
     <div class="header corner full-size padding" style="margin-top:10px;text-align:center;">
         No item in this slab !
     </div>
@@ -56,5 +43,4 @@ elseif((isset($items)) && ($items === false))
         <br/>
         Go back to <a href="?server=<?php echo urlencode($_REQUEST['server']); ?>&amp;show=slabs" class="green">Server Slabs</a>
     </div>
-<?php
-}
+<?php endif;

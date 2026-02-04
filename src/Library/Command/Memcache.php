@@ -24,10 +24,11 @@ namespace App\Library\Command;
 
 use App\Library\App;
 use Exception;
-// https://www.php.net/manual/en/memcache.installation.php
-use \Memcache as MemcachePecl;
 
-class Memcache extends AbstractMemcached implements CommandInterface
+// https://www.php.net/manual/en/memcache.installation.php
+use Memcache as MemcachePecl;
+
+class Memcache extends AbstractMemcached
 {
     /**
      * @var App|null
@@ -60,16 +61,15 @@ class Memcache extends AbstractMemcached implements CommandInterface
      *
      * @return array|boolean
      */
-    public function stats($server, $port)
+    public function stats(string $server, int $port)
     {
         # Adding server
         self::$_memcache->addServer($server, $port);
 
         # Executing command
-        if (($return = self::$_memcache->getExtendedStats())) {
+        if ($return = self::$_memcache->getExtendedStats()) {
             # Delete server key based
-            $stats = $return[$server . ':' . $port];
-            return $stats;
+            return $return[$server . ':' . $port];
         }
         return false;
     }
@@ -83,7 +83,7 @@ class Memcache extends AbstractMemcached implements CommandInterface
      *
      * @return boolean
      */
-    public function settings($server, $port)
+    public function settings(string $server, int $port): bool
     {
         return false;
     }
@@ -97,11 +97,8 @@ class Memcache extends AbstractMemcached implements CommandInterface
      *
      * @return array|boolean
      */
-    public function slabs($server, $port)
+    public function slabs(string $server, int $port)
     {
-        # Initializing
-        $slabs = array();
-
         # Adding server
         self::$_memcache->addServer($server, $port);
 
@@ -136,16 +133,13 @@ class Memcache extends AbstractMemcached implements CommandInterface
      *
      * @return array|boolean
      */
-    public function items($server, $port, $slab)
+    public function items(string $server, int $port, int $slab)
     {
-        # Initializing
-        $items = false;
-
         # Adding server
         self::$_memcache->addServer($server, $port);
 
         # Executing command : slabs stats
-        if (($items = self::$_memcache->getStats('cachedump', $slab, self::$_ini->get('max_item_dump')))) {
+        if ($items = self::$_memcache->getStats('cachedump', $slab, self::$_ini->get('max_item_dump'))) {
             return $items;
         }
         return false;
@@ -162,7 +156,7 @@ class Memcache extends AbstractMemcached implements CommandInterface
      * @return string
      * @throws Exception
      */
-    public function get($server, $port, $key)
+    public function get(string $server, int $port, string $key): string
     {
         $this->validateKey($key);
 
@@ -189,7 +183,7 @@ class Memcache extends AbstractMemcached implements CommandInterface
      * @return string
      * @throws Exception
      */
-    function set($server, $port, $key, $data, $duration)
+    public function set(string $server, int $port, string $key, $data, int $duration): string
     {
         $this->validateKey($key);
 
@@ -214,7 +208,7 @@ class Memcache extends AbstractMemcached implements CommandInterface
      * @return string
      * @throws Exception
      */
-    public function delete($server, $port, $key)
+    public function delete(string $server, int $port, string $key): string
     {
         $this->validateKey($key);
 
@@ -240,7 +234,7 @@ class Memcache extends AbstractMemcached implements CommandInterface
      * @return string
      * @throws Exception
      */
-    function increment($server, $port, $key, $value)
+    public function increment(string $server, int $port, string $key, int $value): string
     {
         $this->validateKey($key);
 
@@ -266,7 +260,7 @@ class Memcache extends AbstractMemcached implements CommandInterface
      * @return string
      * @throws Exception
      */
-    function decrement($server, $port, $key, $value)
+    public function decrement(string $server, int $port, string $key, int $value): string
     {
         $this->validateKey($key);
 
@@ -291,7 +285,7 @@ class Memcache extends AbstractMemcached implements CommandInterface
      *
      * @return string
      */
-    function flush_all($server, $port, $delay)
+    public function flush_all(string $server, int $port, int $delay): string
     {
         # Adding server
         self::$_memcache->addServer($server, $port);
@@ -307,13 +301,13 @@ class Memcache extends AbstractMemcached implements CommandInterface
      *
      * @param string $server Hostname
      * @param integer $port Hostname Port
-     * @param $search
+     * @param string $search
      * @param bool $level
      * @param bool $more
      * @return array
      * @throws Exception
      */
-    function search($server, $port, $search, $level = false, $more = false)
+    public function search(string $server, int $port, string $search, bool $level = false, bool $more = false): array
     {
         throw new Exception('PECL Memcache does not support search function, use Server instead');
     }
@@ -329,7 +323,7 @@ class Memcache extends AbstractMemcached implements CommandInterface
      * @return string
      * @throws Exception
      */
-    function telnet($server, $port, $command)
+    public function telnet(string $server, int $port, string $command): string
     {
         throw new Exception('PECL Memcache does not support telnet, use Server instead');
     }

@@ -27,7 +27,7 @@ class Errors
     /**
      * @var array
      */
-    private static $_errors = array();
+    private static $_errors = [];
 
     /**
      * Add an error to the container
@@ -37,7 +37,7 @@ class Errors
      *
      * @return int
      */
-    public static function add($error)
+    public static function add(string $error): int
     {
         return array_push(self::$_errors, $error);
     }
@@ -57,7 +57,7 @@ class Errors
      *
      * @return integer
      */
-    public static function count()
+    public static function count(): int
     {
         return count(self::$_errors);
     }

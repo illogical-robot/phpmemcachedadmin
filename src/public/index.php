@@ -94,12 +94,12 @@ switch ($request) {
     # Default : Stats for all or specific single server
     default :
         # Initializing stats & settings array
-        $stats = array();
-        $slabs = array();
+        $stats = [];
+        $slabs = [];
         $slabs['total_malloced'] = 0;
         $slabs['total_wasted'] = 0;
-        $settings = array();
-        $status = array();
+        $settings = [];
+        $status = [];
 
         $cluster = null;
         $server = null;
@@ -108,9 +108,10 @@ switch ($request) {
         if (isset($_REQUEST['server']) && ($cluster = $_ini->cluster($_REQUEST['server']))) {
             foreach ($cluster as $name => $server) {
                 # Getting Stats & Slabs stats
-                $data = array();
+                $data = [];
                 $data['stats'] = Factory::instance('stats_api')->stats($server['hostname'], $server['port']);
-                $data['slabs'] = Analysis::slabs(Factory::instance('slabs_api')->slabs($server['hostname'], $server['port']));
+                $slabs = Factory::instance('slabs_api')->slabs($server['hostname'], $server['port']);
+                $data['slabs'] = $slabs ? Analysis::slabs($slabs) : [];
                 $stats = Analysis::merge($stats, $data['stats']);
 
                 # Computing stats
@@ -118,23 +119,24 @@ switch ($request) {
                     $slabs['total_malloced'] += $data['slabs']['total_malloced'];
                     $slabs['total_wasted'] += $data['slabs']['total_wasted'];
                 }
-                $status[$name] = ($data['stats'] != array()) ? $data['stats']['version'] : '';
-                $uptime[$name] = ($data['stats'] != array()) ? $data['stats']['uptime'] : '';
+                $status[$name] = ($data['stats'] != []) ? $data['stats']['version'] : '';
+                $uptime[$name] = ($data['stats'] != []) ? $data['stats']['uptime'] : '';
             }
         }        # Asking for a server stats
         elseif (isset($_REQUEST['server']) && ($server = $_ini->server($_REQUEST['server']))) {
             # Getting Stats & Slabs stats
             $stats = Factory::instance('stats_api')->stats($server['hostname'], $server['port']);
-            $slabs = Analysis::slabs(Factory::instance('slabs_api')->slabs($server['hostname'], $server['port']));
+            $slabsResp = Factory::instance('slabs_api')->slabs($server['hostname'], $server['port']);
+            $slabs = Analysis::slabs($slabsResp ?: []);
             $settings = Factory::instance('stats_api')->settings($server['hostname'], $server['port']);
         }
 
-        # Stats are well formed
-        if (($stats !== false) && ($stats != array())) {
+        # Stats are well-formed
+        if (($stats !== false) && ($stats != [])) {
             # Analysis
             $stats = Analysis::stats($stats);
             require __DIR__ .'/../view/stats/stats.php';
-        }         # Stats are not well formed
+        }         # Stats are not well-formed
         else {
             require __DIR__ .'/../view/stats/error.php';
         }

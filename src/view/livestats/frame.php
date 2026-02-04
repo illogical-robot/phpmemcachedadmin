@@ -5,7 +5,13 @@ use App\Library\Html\Components;
 <script type="text/javascript">
     var timeout = <?php echo $refresh_rate * 1000; ?>;
     var page = '<?php echo App::getInstance()->rootPath(); ?>/stats?request_command=live_stats&cluster=<?php echo urlencode($cluster); ?>';
-    setTimeout("ajax(page,'stats')", <?php echo (5 + $refresh_rate - $_ini->get('refresh_rate')) * 1000; ?>);
+    
+    function loadStats() {
+        ajax(page, 'stats');
+    }
+
+    loadStats();
+    setTimeout(loadStats, <?php echo (5 + $refresh_rate - $_ini->get('refresh_rate')) * 1000; ?>);
 </script>
 
 <div style="float:left;">

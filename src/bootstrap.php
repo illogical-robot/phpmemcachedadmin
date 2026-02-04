@@ -2,9 +2,6 @@
 
 use App\Library\App;
 
-# App.'s hard-coded configuration
-const CURRENT_VERSION = '2.1.1';
-
 require __DIR__ .'/../vendor/autoload.php';
 
 ob_start();

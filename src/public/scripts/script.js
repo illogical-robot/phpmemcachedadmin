@@ -288,7 +288,7 @@ function ajaxDone(req, target) {
 		if (req.status === 200 || req.status === 304) {
 			document.getElementById(target).innerHTML = req.responseText;
 		} else {
-			document.getElementById(target).innerHTML = "Loading stats error : " + req.statusText;
+			document.getElementById(target).innerHTML = "Loading stats error: " + req.statusText;
 		}
 	}
 }

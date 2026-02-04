@@ -4,7 +4,7 @@ namespace App\Library\Command;
 
 use Exception;
 
-abstract class AbstractMemcached
+abstract class AbstractMemcached implements CommandInterface
 {
     /**
      * @throws Exception

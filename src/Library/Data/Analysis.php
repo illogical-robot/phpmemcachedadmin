@@ -209,7 +209,7 @@ class Analysis
      *
      * @return array
      */
-    public static function slabs($slabs)
+    public static function slabs(array $slabs): array
     {
         # Initializing Used Slabs
         $slabs['used_slabs'] = 0;

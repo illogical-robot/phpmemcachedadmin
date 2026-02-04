@@ -90,8 +90,8 @@ switch ($request) {
         $previous = @unserialize(file_get_contents($filePath));
 
         # Initializing variables
-        $actual = array();
-        $stats = array();
+        $actual = [];
+        $stats = [];
         $time = 0;
 
         # Requesting stats for each server
@@ -100,7 +100,8 @@ switch ($request) {
             $time = microtime(true);
 
             # Asking server for stats
-            $actual[$name] = Factory::instance('stats_api')->stats($server['hostname'], $server['port']);
+            $statsResp = Factory::instance('stats_api')->stats($server['hostname'], $server['port']);
+            $actual[$name] = $statsResp ?: [];
 
             # Calculating query time length
             $actual[$name]['query_time'] = max((microtime(true) - $time) * 1000, 1);
@@ -141,7 +142,7 @@ switch ($request) {
     # Default : No command
     default :
         # Initializing : making stats dump
-        $stats = array();
+        $stats = [];
         foreach ($_ini->cluster($cluster) as $name => $server) {
             $stats[$name] = Factory::instance('stats_api')->stats($server['hostname'], $server['port']);
         }

@@ -40,7 +40,7 @@ interface CommandInterface
      *
      * @return array|boolean
      */
-    function stats($server, $port);
+    function stats(string $server, int $port);
 
     /**
      * Send stats settings command to server
@@ -51,7 +51,7 @@ interface CommandInterface
      *
      * @return array|boolean
      */
-    public function settings($server, $port);
+    public function settings(string $server, int $port);
 
     /**
      * Retrieve slabs stats
@@ -62,7 +62,7 @@ interface CommandInterface
      *
      * @return array|boolean
      */
-    function slabs($server, $port);
+    function slabs(string $server, int $port);
 
     /**
      * Retrieve items from a slabs
@@ -74,7 +74,7 @@ interface CommandInterface
      *
      * @return array|boolean
      */
-    function items($server, $port, $slab);
+    function items(string $server, int $port, int $slab);
 
     /**
      * Send get command to server to retrieve an item
@@ -84,9 +84,9 @@ interface CommandInterface
      * @param integer $port Hostname Port
      * @param string $key Key to retrieve
      *
-     * @return string
+     * @return string|null
      */
-    function get($server, $port, $key);
+    function get(string $server, int $port, string $key): ?string;
 
     /**
      * Set an item
@@ -100,7 +100,7 @@ interface CommandInterface
      *
      * @return string
      */
-    function set($server, $port, $key, $data, $duration);
+    function set(string $server, int $port, string $key, $data, int $duration): string;
 
     /**
      * Delete an item
@@ -112,7 +112,7 @@ interface CommandInterface
      *
      * @return string
      */
-    function delete($server, $port, $key);
+    function delete(string $server, int $port, string $key): string;
 
     /**
      * Increment the key by value
@@ -125,7 +125,7 @@ interface CommandInterface
      *
      * @return string
      */
-    function increment($server, $port, $key, $value);
+    function increment(string $server, int $port, string $key, int $value): string;
 
     /**
      * Decrement the key by value
@@ -138,7 +138,7 @@ interface CommandInterface
      *
      * @return string
      */
-    function decrement($server, $port, $key, $value);
+    function decrement(string $server, int $port, string $key, int $value): string;
 
     /**
      * Flush all items on a server after delay
@@ -150,7 +150,7 @@ interface CommandInterface
      *
      * @return string
      */
-    function flush_all($server, $port, $delay);
+    function flush_all(string $server, int $port, int $delay): string;
 
     /**
      * Search for item
@@ -159,12 +159,12 @@ interface CommandInterface
      * @param string $server Hostname
      * @param integer $port Hostname Port
      * @param string $search
-     * @param boolean $level Level of detail
-     * @param boolean $more More action
+     * @param string|null $level Level of detail
+     * @param string|null $more More action
      *
      * @return array
      */
-    function search($server, $port, $search, $level = false, $more = false);
+    function search(string $server, int $port, string $search, ?string $level = null, ?string $more = null): array;
 
     /**
      * Execute a telnet command on a server
@@ -176,5 +176,5 @@ interface CommandInterface
      *
      * @return string
      */
-    function telnet($server, $port, $command);
+    function telnet(string $server, int $port, string $command): string;
 }
