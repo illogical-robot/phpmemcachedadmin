@@ -6,7 +6,30 @@ Forked the original implementation from https://github.com/elijaa/phpmemcachedad
 
 ## Installation
 
-### As a standalone PHP script
+### As a standalone PHP PHAR script
+
+All the assets and scripts are embed into the PHAR file.
+
+1. Download the file `phpmemcachedadmin.phar` from the latest release https://github.com/AlexeyPlodenko/phpmemcachedadmin/releases
+2. Rename `phpmemcachedadmin.phar` to `phpmemcachedadmin.php`
+3. Create a file `.config.php` next to the `phpmemcachedadmin.php` script and put your configuration there:
+    ```php
+    <?php
+    return [
+        'servers' =>[
+            'Default' => [
+                'localhost-server' => [
+                    'hostname' => '127.0.0.1',
+                    'port' => '11211',
+                ],
+            ],
+        ],
+    ];
+    ```
+4. Upload `phpmemcachedadmin.php` and `.config.php` to your server to the same directory
+5. Access the script at http://YOUR-DOMAIN-GOES-HERE/phpmemcachedadmin.php
+
+### As a standalone PHP scripts
 
 1. Clone the repository.
 2. Create the file `/.config.php` and put your configuration there:
