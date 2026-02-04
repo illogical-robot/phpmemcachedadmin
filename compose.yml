@@ -1,6 +1,6 @@
-version: "3"
 services:
     phpmemcachedadmin:
+        container_name: "phpmemcachedadmin"
         build:
             context: "."
             dockerfile: "./docker/apache2/Dockerfile"
