@@ -13,8 +13,6 @@
  * See the License for the specific language governing permissions and limitations
  * under the License.
  *
- * ><)))°> ><)))°> ><)))°> ><)))°> ><)))°> ><)))°> ><)))°> ><)))°> ><)))°>
- *
  * Stats viewing
  *
  * @author elijaa@free.fr
@@ -112,7 +110,7 @@ switch ($request) {
                 $data['stats'] = Factory::instance('stats_api')->stats($server['hostname'], $server['port']);
                 $slabsResp = Factory::instance('slabs_api')->slabs($server['hostname'], $server['port']);
                 $data['slabs'] = $slabs ? Analysis::slabs($slabs) : [];
-                $stats = Analysis::merge($stats, $data['stats']);
+                $stats = Analysis::merge($stats, $data['stats'] ?: []);
 
                 # Computing stats
                 if (isset($data['slabs']['total_malloced'], $data['slabs']['total_wasted'])) {
