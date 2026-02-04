@@ -4,11 +4,12 @@
 
 Forked the original implementation from https://github.com/elijaa/phpmemcachedadmin to provide additional features, like key search and listing.
 
-## Configuration
+## Installation
 
-1. Create the file `/.config.php` and put your configuration there:
-   1. For a locally installed MemcacheD server:
+### As a standalone PHP script
 
+1. Clone the repository.
+2. Create the file `/.config.php` and put your configuration there:
     ```php
     <?php
     return [
@@ -22,9 +23,14 @@ Forked the original implementation from https://github.com/elijaa/phpmemcachedad
         ],
     ];
     ```
+3. In your console, navigate to the root of the project and execute `composer install` to install the PHP Composer packages.
+4. Deploy all code to your server one level above your website directory.
+5. The `/src/public/` directory should be configured as your website root directory.
 
-   2. For a MemcacheD server installed as Docker service in another project:
+### As a Docker container
 
+1. Clone the repository.
+2. Create the file `/.config.php` and put your configuration there:
     ```php
     <?php
     return [
@@ -38,16 +44,16 @@ Forked the original implementation from https://github.com/elijaa/phpmemcachedad
         ],
     ];
     ```
+3. In your console, navigate to the root of the project...
+   1. ...and execute `composer install` to install the PHP Composer packages.
+   2. ...and execute `docker compose up` to start the Docker containers.
+4. Now you can access the `phpmemcachedadmin` at http://localhost
 
-2. In your console, navigate to the root of the project...
-   1. ...and execute `composer install`
-   2. ...and execute `docker compose up`
-
-### If you need to modify the `docker-compose.yml` configuration
+#### If you need to modify the `docker-compose.yml` configuration
 
 Do not edit the original file, but rather create `/docker-compose.override.yml` and put your configuration there. That is the official Docker way.
 
-### Graphic stand-alone administration for MemcacheD to monitor and debug purpose ###
+## Graphic stand-alone administration for Memcached to monitor and debug purpose
 
 This program allows to see in **real-time** (top-like) or from the start of the server, **stats for get, set, delete, increment, decrement, evictions, reclaimed, cas command**, as well as **server stats** (network, items, server version) with Google Charts and  **server internal configuration**
 
@@ -55,7 +61,7 @@ You can go further to **see each server slabs, occupation, memory wasted and ite
 
 Another part can execute commands to any memcached server : get, set, delete, flush\_all, as well as execute any commands (like stats) with telnet
 
-## Feature list ##
+## Feature list
 
 <h4>Statistics</h4>
 <ul><li>Stats for each or all memcached servers, items, evicted, reclaimed ...<br>
@@ -80,6 +86,6 @@ Another part can execute commands to any memcached server : get, set, delete, fl
 </li><li>phpMemcachedAdmin can use socket communication, PECL Memcache or Memcached API<br>
 </li><li>Organize your servers into cluster</li></ul>
 
-## Security ##
+## Security
 
 phpMemcachedAdmin does not provide any security system, you need to add this feature by yourself.
