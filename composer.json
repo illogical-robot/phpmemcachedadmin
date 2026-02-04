@@ -1,6 +1,6 @@
 {
     "name": "alexeyplodenko/phpmemcachedadmin",
-    "description": "Graphic stand-alone administration for MemcacheD",
+    "description": "Graphic stand-alone administration for Memcached",
     "type": "library",
     "license": "Apache-2.0",
     "authors": [
@@ -20,6 +20,6 @@
     },
     "require": {
         "php": ">=7.1",
-        "alexeyplodenko/symfony-php-dumper": "^1.0"
+        "ext-zlib": "*"
     }
 }

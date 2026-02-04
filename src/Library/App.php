@@ -22,6 +22,7 @@
  */
 namespace App\Library;
 
+use Phar;
 use RuntimeException;
 
 class App
@@ -92,7 +93,7 @@ class App
 
         $this->config = $this->defaultConfig;
 
-        if ($this->exists()) {
+        if ($this->isConfigExists()) {
             $configFilePath = $this->configFilePath();
             $userConfig = require $configFilePath;
             if (is_array($userConfig)) {
@@ -128,6 +129,11 @@ class App
             return $this->config[$key];
         }
         return false;
+    }
+    
+    public function isPhar(): bool
+    {
+        return class_exists('Phar') && !empty(Phar::running());
     }
 
     /**
@@ -173,7 +179,7 @@ class App
 
     /**
      * Servers to retrieve from cluster
-     * Return the value, or false if does not exists
+     * Return the value, or false if it does not exist
      *
      * @param string $cluster Cluster to retrieve
      *
@@ -225,29 +231,22 @@ class App
      */
     public function configFilePath(): string
     {
-        if (!$this->realConfigFilePath) {
-            $this->realConfigFilePath = realpath(__DIR__ .'/../../'. $this->configFilePath);
+        if ($this->isPhar()) {
+            // expects the .config.php file to be located on the same level as the script itself
+            return dirname(Phar::running(false)) . DIRECTORY_SEPARATOR . $this->configFilePath;
         }
-
-        return $this->realConfigFilePath;
+        
+        // expects the .config.php file to be located at the project root directory
+        return realpath(__DIR__ .'/../../'. $this->configFilePath);
     }
 
     /**
      * @return bool
      */
-    public function exists(): bool
+    public function isConfigExists(): bool
     {
         $configFilePath = $this->configFilePath();
         return is_file($configFilePath);
-    }
-
-    /**
-     * @return bool
-     */
-    public function isWritable(): bool
-    {
-        $configFilePath = $this->configFilePath();
-        return is_writable($configFilePath);
     }
 
     /**
@@ -277,6 +276,9 @@ class App
      */
     public function rootPath(): string
     {
+        if ($this->isPhar()) {
+            return $_SERVER['SCRIPT_NAME'];
+        }
         return $this->config['rootPath'] ?? '';
     }
 }

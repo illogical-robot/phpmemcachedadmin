@@ -523,7 +523,7 @@ class Server extends AbstractMemcached
     public function search(string $server, int $port, string $search, ?string $level = null, ?string $more = null): array
     {
         $slabs = [];
-        $items = false;
+        $items = [];
 
         # Executing command : stats
         $infinite = 0;

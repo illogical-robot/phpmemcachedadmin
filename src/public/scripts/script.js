@@ -23,17 +23,15 @@ function changeCluster(select) {
 	location.search = '?cluster=' + select.options[select.selectedIndex].value;
 }
 
-function show(target)
-{
+function show(target) {
 	const objects = document.getElementsByClassName(target);
 	for(let i = 0 ; i < objects.length ; i++){
 		objects[i].style.display = '';
 	}
 }
-function hide(target)
-{
+function hide(target){
 	const objects = document.getElementsByClassName(target);
-	for(let i = 0 ; i < objects.length ; i++){
+	for (let i = 0 ; i < objects.length ; i++){
 		objects[i].style.display = 'none';
 	}
 }
@@ -83,30 +81,30 @@ function changeCommand(obj) {
 	}
 }
 function executeHideShow(target, input, force) {
-	var object = document.getElementById(target);
-	input = document.getElementById(input);
+    const object = document.getElementById(target);
+    const $input = document.getElementById(input);
 	if (object.style.display === "block" && !force)  {
-		input.value = "Show Console";
+        $input.value = "Show Console";
 		object.style.visibility = "hidden";
 		object.style.display = "none";
 	} else {
 		object.style.visibility = "visible";
 		object.style.display = "block";
-		input.value = "Hide Console";
+        $input.value = "Hide Console";
 	}
 }
 function executeClear(target) {
-	var object = document.getElementById(target);
-	object.innerHTML = '';
+    const object = document.getElementById(target);
+    object.innerHTML = '';
 }
 function executeCommand(target, params) {
 	if (params != null) {
-		const request_url = '/commands?' + params;
+		const request_url = basePath + '/commands?' + params;
 		execute(request_url, target, true);
 		return;
 	}
 	if (document.getElementById('request_command').value !== '') {
-		const request_url = '/commands?request_command='
+		const request_url = basePath + '/commands?request_command='
 				+ document.getElementById('request_command').value
 				+ '&request_key='
 				+ document.getElementById('request_key').value
@@ -127,7 +125,7 @@ function executeCommand(target, params) {
 }
 function searchKey(target) {
 	if (document.getElementById('search_key').value !== '') {
-		const request_url = '/commands?request_command=search'
+		const request_url = basePath + '/commands?request_command=search'
 				+ '&request_key=' + document.getElementById('search_key').value
 				+ '&request_level=' + document.getElementById('search_level').value
 				+ '&request_more=' + document.getElementById('search_more').value
@@ -138,7 +136,7 @@ function searchKey(target) {
 }
 function executeTelnet(target) {
 	if (document.getElementById('request_telnet').value !== '') {
-		const request_url = '/commands?request_command=telnet'
+		const request_url = basePath + '/commands?request_command=telnet'
 				+ '&request_telnet='
 				+ document.getElementById('request_telnet').value
 				+ '&request_server='
@@ -146,6 +144,7 @@ function executeTelnet(target) {
 		execute(request_url, target, true);
 	}
 }
+
 function execute(url, target, append) {
 	if (window.XMLHttpRequest) {
 		const req = new XMLHttpRequest();
@@ -165,6 +164,7 @@ function execute(url, target, append) {
 		}
 	}
 }
+
 function onExecute(req, target, append) {
 	if (req.readyState === 1) {
 		document.getElementById('loading').style.visibility = "visible";
@@ -184,6 +184,7 @@ function onExecute(req, target, append) {
 		document.getElementById('loading').style.visibility = "hidden";
 	}
 }
+
 let server_id = 1;
 let cluster_id = 1;
 function addCluster() {
@@ -202,6 +203,7 @@ function addCluster() {
 	document.getElementById('server_form').appendChild(clusterDiv);
 	addServer(cluster_id);
 }
+
 function addServer(current_cluster_id) {
 	const serverDiv = document.createElement('div');
 	server_id++;
@@ -217,6 +219,7 @@ function addServer(current_cluster_id) {
 	serverDiv.setAttribute('id', 'server_' + server_id);
 	document.getElementById('cluster_' + current_cluster_id).insertBefore(serverDiv, document.getElementById('cluster_' + current_cluster_id + '_commands'));
 }
+
 function deleteServerOrCluster(divID) {
 	const div = document.getElementById(divID);
 	div.parentNode.removeChild(div);
@@ -228,18 +231,21 @@ function nameOnChange(target) {
 	const hostObject = document.getElementById('host_' + target);
 	hostObject.setAttribute("onchange", "return false;");
 }
+
 function hostOnFocus(object) {
 	if (object.value === 'hostname') {
 		object.value = '';
 	}
 }
+
 function hostOnBlur(object) {
 	if (object.value === '') {
 		object.value = 'hostname';
 	}
 }
+
 function hostOnChange(target) {
-	document.getElementById(target);
+	const object = document.getElementById(target);
 	if (object.value === '') {
 		object.value = 'port';
 	}
@@ -249,11 +255,13 @@ function portOnFocus(object) {
 		object.value = '';
 	}
 }
+
 function portOnBlur(object) {
 	if (object.value === '') {
 		object.value = 'port';
 	}
 }
+
 function hostOrPortOnChange(target) {
 	const nameObject = document.getElementById('name_' + target);
 	const hostObject = document.getElementById('host_' + target);
@@ -262,6 +270,7 @@ function hostOrPortOnChange(target) {
 		nameObject.value = hostObject.value + ':' + portObject.value;
 	}
 }
+
 function ajax(url, target) {
 	if (window.XMLHttpRequest) {
 		const req = new XMLHttpRequest();
@@ -281,6 +290,7 @@ function ajax(url, target) {
 		}
 	}
 }
+
 function ajaxDone(req, target) {
 	if (req.readyState === 4) {
 		if (req.status === 200 || req.status === 304) {
