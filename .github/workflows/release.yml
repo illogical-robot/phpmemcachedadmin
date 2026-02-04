@@ -37,15 +37,6 @@ jobs:
                   # 2. Build the PHAR
                   php -d phar.readonly=0 build-phar.php
 
-            - name: Commit and Push Version update
-              run: |
-                  git config --global user.name "github-actions[bot]"
-                  git config --global user.email "github-actions[bot]@users.noreply.github.com"
-                  git add src/bootstrap.php
-                  # Using --allow-empty in case the version was somehow already updated
-                  git commit -m "chore: update version to ${{ github.event.release.tag_name }}"
-                  git push origin HEAD:${{ github.event.release.target_commitish }}
-
             - name: Upload PHAR to Release
               uses: softprops/action-gh-release@v2
               with:
