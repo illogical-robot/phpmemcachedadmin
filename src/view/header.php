@@ -5,12 +5,12 @@
 <html lang="en">
 <head>
     <title>PHPMemcachedAdmin<?= APP_VERSION !== '%%VERSION%%' ? ' '. APP_VERSION : ''?></title>
-    <link rel="stylesheet" type="text/css" href="<?= $app->rootPath(); ?>/styles/style.css"/>
+    <link rel="stylesheet" type="text/css" href="<?= $app->rootPath(); ?>/styles/style.css?<?= APP_VERSION; ?>"/>
     <script>
         const basePath = '<?= $app->rootPath(); ?>';
     </script>
-    <script src="<?= $app->rootPath(); ?>/scripts/highcharts/highcharts.js"></script>
-    <script src="<?= $app->rootPath(); ?>/scripts/script.js"></script>
+    <script src="<?= $app->rootPath(); ?>/scripts/highcharts/highcharts.js?<?= APP_VERSION; ?>"></script>
+    <script src="<?= $app->rootPath(); ?>/scripts/script.js?<?= APP_VERSION; ?>"></script>
 </head>
 <body>
 <div style="margin:0 auto; width:1000px; clear:both;">
