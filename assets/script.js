@@ -300,3 +300,28 @@ function ajaxDone(req, target) {
 		}
 	}
 }
+
+window.changeServer = changeServer;
+window.changeCluster = changeCluster;
+window.show = show;
+window.hide = hide;
+window.changeCommand = changeCommand;
+window.executeHideShow = executeHideShow;
+window.executeClear = executeClear;
+window.executeCommand = executeCommand;
+window.searchKey = searchKey;
+window.executeTelnet = executeTelnet;
+window.execute = execute;
+window.onExecute = onExecute;
+window.addCluster = addCluster;
+window.addServer = addServer;
+window.deleteServerOrCluster = deleteServerOrCluster;
+window.nameOnChange = nameOnChange;
+window.hostOnFocus = hostOnFocus;
+window.hostOnBlur = hostOnBlur;
+window.hostOnChange = hostOnChange;
+window.portOnFocus = portOnFocus;
+window.portOnBlur = portOnBlur;
+window.hostOrPortOnChange = hostOrPortOnChange;
+window.ajax = ajax;
+window.ajaxDone = ajaxDone;

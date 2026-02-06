@@ -19,8 +19,12 @@ Thumbs.db
 # Runtime
 /temp/
 /html/
+/src/public/build/
 
 # Docker
 /docker-compose.override.yml
 /compose.override.yml
 /compose.override.yaml
+
+# Build
+#/src/public/build

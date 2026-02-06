@@ -46,7 +46,10 @@ All the assets and scripts are embed into the PHAR file.
         ],
     ];
     ```
-3. In your console, navigate to the root of the project and execute `composer install` to install the PHP Composer packages.
+3. In your console, navigate to the root of the project and execute:
+   1. `composer install` to install the PHP Composer packages.
+   2. `npm i` to install the JS NPM packages used at the next step.
+   3. `npm run build` to build the JS/CSS assets and publish those to the public directory.
 4. Deploy all code to your server one level above your website directory.
 5. The `/src/public/` directory should be configured as your website root directory.
 
@@ -67,9 +70,11 @@ All the assets and scripts are embed into the PHAR file.
         ],
     ];
     ```
-3. In your console, navigate to the root of the project...
-   1. ...and execute `composer install` to install the PHP Composer packages.
-   2. ...and execute `docker compose up` to start the Docker containers.
+3. In your console, navigate to the root of the project and execute:
+    1. `composer install` to install the PHP Composer packages.
+    2. `npm i` to install the JS NPM packages used at the next step.
+    3. `npm run build` to build the JS/CSS assets and publish those to the public
+    4. `docker compose up` to start the Docker containers.
 4. Now you can access the `phpmemcachedadmin` at http://localhost
 
 #### If you need to modify the `docker-compose.yml` configuration
